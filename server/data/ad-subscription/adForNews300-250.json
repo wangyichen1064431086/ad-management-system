@@ -1,0 +1,20 @@
+{
+  "adTitle":"adForNews300-250",
+  "styleName":"adForNews300-250",
+
+  "ccode":"2G186010",
+  "topTitle":"精选资讯，付费会员专享 &gt; ",
+  "headArticle": {
+    "tag":"中国股市",
+    "title":"A股停牌问题仍困扰国际投资者",
+    "url":"http://www.ftchinese.com/story/001077926?exclusive",
+    "pic":"http://i.ftimg.net/picture/8/000066228_piclink.jpg"
+  },
+  "articleList": [
+    {
+      "tag":"中国市场",
+      "title":"在华外企日益沮丧",
+      "url":"http://www.ftchinese.com/premium/001077859?exclusive&archive"
+    }
+  ]
+}
