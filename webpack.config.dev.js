@@ -30,7 +30,9 @@ module.exports = {
     }, {
       test: /\.scss$/,
       include: [
-        path.join(__dirname, 'client', 'scss'),
+        //path.resolve(__dirname, 'client/scss'),
+        path.resolve(__dirname, 'client/scss/components'),
+        path.resolve(__dirname, 'node_modules')//不起作用
       ],
       loader: sassLoader
     },{
@@ -38,7 +40,7 @@ module.exports = {
         test: /\.scss$/,
         or: [
           path.join(__dirname, 'client', 'scss','ad-subscription'),
-        ],
+        ]
       },
       use: [ 
         MiniCssExtractPlugin.loader,
@@ -52,7 +54,8 @@ module.exports = {
     //Configure how modules are resolved.
     alias: {
       //Create aliases to import or require certain modules more easily. Eg: in app.js, "import React from '../node_modules/react';" can now be written as "import React from 'react"
-      'react': path.join(__dirname,'node_modules','react')
+      'react': path.join(__dirname,'node_modules','react'),
+      'sass-mq': path.resolve(__dirname, 'node_modules/sass-mq')//没有用啊
     },
     extensions: [
       //Enables users to leave off the extension when importing.(省略引入文件的后缀)

@@ -1,0 +1,50 @@
+@import '../responsetool.scss';
+
+.form {
+  max-width: 380px;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+  @include oGridRespondTo(S) {
+    padding: 0 10px;
+  }
+}
+
+.sub-btn {
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  font-family: MetricWeb,sans-serif;
+  font-weight: 600;
+  border-radius: 0;
+  cursor: pointer;
+
+  background-size: 40px 40px;
+  min-height: 40px;
+  min-width: 80px;//宽度由内容决定
+  padding: 11px 20px 11px 20px;
+  font-size: 16px;
+  line-height: 16px;
+  border-width: 1px;
+
+  background-color: #0d7680;
+  color: #fff;
+  border-color: transparent;
+
+  &:hover {
+    background-color: #0a5e66;
+  }
+  &[disabled] {
+    cursor: default;
+    opacity: .4;
+  }
+}
+
+.subbtn-line {
+  width:100%;
+  text-align: center;
+}
