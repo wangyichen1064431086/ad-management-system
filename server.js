@@ -79,7 +79,8 @@ const dataPostRouter = new Router();
 router.get('/adfornews', async ctx => {
   console.log('get!!!!')
   ctx.body = await render('app.html', {
-    demoName: 'FTC Ad Management System'
+    demoName: 'FTC Ad Management System',
+    defaultCcode: '12345'
   })
 });
 
@@ -88,11 +89,18 @@ adResultRouter.get('/fornews', async ctx => {
   console.log(adData);
   ctx.body = await render('adForNews.html', adData);
 });
-router.use('/ad', adResultRouter.routes()) //Nested routers 嵌套路由
+router.use('/ad', adResultRouter.routes()); //Nested routers 嵌套路由
 
-dataPostRouter.get('/fornews',  ctx => {
+dataPostRouter.post('/fornews',  ctx => {
+  const data = ctx.request.body;
+  data.adTitle = "adForNews";
+  data.styleName = "adForNews";
+  const jsonToWrite = JSON.stringify(data);
+  jetpack.write('./server/data/ad-subscription/adForNews.json', jsonToWrite);
+});
 
-})
+router.use('/datapost', dataPostRouter.routes());
+
 app.use(router.routes());
 
 app.listen(8000, () => { //NOTE: 'listening'事件，Node的原生事件，在调用server.listen()后触发

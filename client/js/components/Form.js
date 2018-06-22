@@ -34,7 +34,9 @@ class Form extends React.Component {
     textOnSubmitBtn:'Submit'
   }
 
-
+  componentDidMount() {
+    
+  }
   render() {
     const {children, actionUrl, textOnSubmitBtn} = this.props;
     return (

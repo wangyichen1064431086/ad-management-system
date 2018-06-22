@@ -29,7 +29,7 @@ ReactDOM.render(
     
     <p>请根据实际需要编辑数据</p>
 
-    <Form actionUrl="/addata">
+    <Form actionUrl="/datapost/fornews">
       <TextInput name="ccode" label="ccode编号" info="请输入广告的ccode" placeholder="例：2G186012" />
       <TextInput name="topTitle" label="顶部标题" info="请输入广告的顶部标题" placeholder="例：付费热门文章" />
 
