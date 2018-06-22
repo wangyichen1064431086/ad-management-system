@@ -96,7 +96,17 @@ dataPostRouter.post('/fornews',  ctx => {
   data.adTitle = "adForNews";
   data.styleName = "adForNews";
   const jsonToWrite = JSON.stringify(data);
-  jetpack.write('./server/data/ad-subscription/adForNews.json', jsonToWrite);
+  jetpack.writeAsync('./server/data/ad-subscription/adForNews.json', jsonToWrite);
+  ctx.redirect('back');
+  /** NOTE: ctx.redirect:
+   * 同response.redirect, 执行 [302] 重定向到 url.
+   * 字符串 “back” 是特别提供Referrer支持的，当Referrer不存在时，使用 alt 或“/”
+   * 如果删去这句话，那么就直接得到/post路由，这个路由只是处理表单，却没有返回任何内容，所以会显示Not Found页面
+   。
+  */
+});
+dataPostRouter.get('/fornews', ctx => {
+  ctx.body = jetpack.read('./server/data/ad-subscription/adForNews.json','json');
 });
 
 router.use('/datapost', dataPostRouter.routes());

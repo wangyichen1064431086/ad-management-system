@@ -35,7 +35,23 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
-    
+    const url = this.props.actionUrl;
+    fetch(url)
+      .then(res =>
+        res.json()
+      ).then(result => {
+        console.log('fetch data:')
+        console.log(result) //更新children的defaultValue
+        /*
+        React.Children.map(children, child => {
+          const fieldName = child.props.name;
+          return React.cloneElement(child, {
+            defaultValue: result[name]
+          })
+        })
+        */
+      }
+    )
   }
   render() {
     const {children, actionUrl, textOnSubmitBtn} = this.props;
