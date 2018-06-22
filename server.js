@@ -74,6 +74,7 @@ app.use(webpackMiddleware({
 
 const router = new Router();
 const adResultRouter = new Router();
+const dataPostRouter = new Router();
 
 router.get('/adfornews', async ctx => {
   console.log('get!!!!')
@@ -89,7 +90,9 @@ adResultRouter.get('/fornews', async ctx => {
 });
 router.use('/ad', adResultRouter.routes()) //Nested routers 嵌套路由
 
+dataPostRouter.get('/fornews',  ctx => {
 
+})
 app.use(router.routes());
 
 app.listen(8000, () => { //NOTE: 'listening'事件，Node的原生事件，在调用server.listen()后触发

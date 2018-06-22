@@ -2,9 +2,11 @@
 
 .form {
   max-width: 380px;
-  margin: 0 0 20px;
+  margin: 0 auto 20px;
   padding: 0;
   border: 0;
+  font-family: MetricWeb,sans-serif;
+  font-size: 16px;
   @include oGridRespondTo(S) {
     padding: 0 10px;
   }
@@ -18,7 +20,6 @@
   border-style: solid;
   text-align: center;
   text-decoration: none;
-  font-family: MetricWeb,sans-serif;
   font-weight: 600;
   border-radius: 0;
   cursor: pointer;
@@ -47,4 +48,75 @@
 .subbtn-line {
   width:100%;
   text-align: center;
+}
+
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #b3a9a0;
+  padding: 20px 20px 0;
+  margin: 0 0 20px; //它与其中的最后一个子元素.onefield为什么不会发生margin塌陷？？
+  legend {
+    font-weight: 600;
+    color: #33302e;
+  }
+}
+.onefield {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 20px;
+}
+.textinput-label {
+  font-weight: 600;
+  color: #33302e;
+  padding: 0;
+}
+.textinput-info {
+  font-size: 14px;
+  line-height: 16px;
+  color: #66605c;
+  margin: 0;//p有默认margin,为14px,0
+  padding: 0;
+}
+.text-input {
+  line-height: 20px;
+  font-size: 16px;//NOTE:input元素得设置该值，否则默认为13.3333px，且cursor：text的高度是和该值一致的
+  color: #33302e;
+  background-color: #fff;
+  margin-top: 12px;
+  //-webkit-box-sizing: border-box;针对非常老的chrome
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 380px;
+  min-height: 40px;
+  padding: 9px;
+  border: 1px solid #b3a9a0;
+  background-clip: padding-box;
+  /** NOTE: 
+    background-clip: 设置元素的背景（背景图片或颜色）是否延伸到边框下面。
+    * border-box:背景延伸到边框外沿（但是在边框之下）。
+    * padding-box: 边框下面没有背景，即背景延伸到内边距外沿。
+    * content-box: 背景裁剪到内容区 (content-box) 外沿。
+    * text:背景被裁剪为文字的前景色(只有chrome支持)。
+  */
+  outline: 0;
+
+  &:focus {
+    box-shadow: 0 0 0 1px #1aecff;
+    outline: 2px solid #1aecff;
+  }
+
+  //NOTE:修改placeholder颜色
+  &::-webkit-input-placeholder { /* WebKit browsers */
+    color: #b3a9a0;
+  }
+  &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: #b3a9a0;
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: #b3a9a0;
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+      color: #b3a9a0;
+  }
 }

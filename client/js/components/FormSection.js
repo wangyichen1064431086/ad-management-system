@@ -7,11 +7,13 @@ import CSSModules from 'react-css-modules';
 
 import form from '../../scss/components/form.scss';
 
-function Select() {
+function FormSection({sectionName, children}) {
   return (
-    <select>
-    </select>
+    <fieldset styleName="section">
+      <legend>{sectionName}</legend>
+      {children}
+    </fieldset>
   )
 }
 
-export default CSSModules(Select, form, {allowMultiple: true});
+export default CSSModules(FormSection, form, {allowMultiple: true});

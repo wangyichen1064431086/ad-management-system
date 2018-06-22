@@ -8,19 +8,24 @@ import CSSModules from 'react-css-modules';
 import form from '../../scss/components/form.scss'
 
 import SubmitBtn from './SubmitBtn';
-import TextInput from './TextInput';
-import Select from './Select';
+
 
 @CSSModules(form, {allowMultiple: true})
 class Form extends React.Component {
   static propTypes = {
-    children: PropTypes.arrayOf(
-      PropTypes.oneOf([
-        PropTypes.instanceOf(TextInput),
-        PropTypes.instanceOf(Select),
-        //PropTypes.instanceOf(RadioInput)
-      ])
-    ),
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(
+        PropTypes.node
+        /*
+        PropTypes.oneOfType([
+          PropTypes.instanceOf(TextInput),
+          PropTypes.instanceOf(Select),
+          //PropTypes.instanceOf(RadioInput) //待研究：这样写instanceOf为何不可以?
+        ])
+        */
+      ),
+      PropTypes.node
+    ]),
     actionUrl: PropTypes.string.isRequired,
     textOnSubmitBtn: PropTypes.string.isRequired
   };

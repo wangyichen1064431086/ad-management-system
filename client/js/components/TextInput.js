@@ -7,9 +7,13 @@ import CSSModules from 'react-css-modules';
 
 import form from '../../scss/components/form.scss';
 
-function TextInput() {
+function TextInput({name, label, info, placeholder, defaultValue}) {
   return (
-    <input type="text" />
+    <div styleName="onefield">
+      <label htmlFor={name} styleName="textinput-label">{label}</label>
+      <p styleName="textinput-info">{info}</p>
+      <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={defaultValue}/>
+    </div>
   )
 }
 
