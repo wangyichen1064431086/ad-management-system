@@ -100,7 +100,10 @@ dataPostRouter.post('/fornews',  ctx => {
   data.styleName = "adForNews";
   const jsonToWrite = JSON.stringify(data);
   jetpack.writeAsync('./server/data/ad-subscription/adForNews.json', jsonToWrite);
-  ctx.redirect('back');
+  ctx.body = {
+    'ok': true //如果提交Ajax不是默认行为，那么可以在button的onSubmit的事件监听函数的fetch post的回调函数判断是否提交成功
+  }
+  ctx.redirect('/datapost/postsuccess');
   /** NOTE: ctx.redirect:
    * 同response.redirect, 执行 [302] 重定向到 url.
    * 字符串 “back” 是特别提供Referrer支持的，当Referrer不存在时，使用 alt 或“/”
@@ -108,6 +111,18 @@ dataPostRouter.post('/fornews',  ctx => {
    。
   */
 });
+dataPostRouter.get('/postsuccess', ctx => {
+  ctx.body = '提交成功！ 2s后返回之前的页面...';
+  //ctx.redirect('/adfornews');
+
+  new Promise(resolve => { //QUEST:没有用? Why??
+    setTimeout(function() {
+      ctx.redirect('/adfornews');
+      resolve();
+    }, 2000);
+  });
+  
+})
 dataPostRouter.get('/fornews', ctx => {
   ctx.body = jetpack.read('./server/data/ad-subscription/adForNews.json','json');
 });

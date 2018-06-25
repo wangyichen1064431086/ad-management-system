@@ -28,7 +28,8 @@ class Form extends React.Component {
       PropTypes.node
     ]),
     actionUrl: PropTypes.string.isRequired,
-    textOnSubmitBtn: PropTypes.string.isRequired
+    textOnSubmitBtn: PropTypes.string.isRequired,
+    reminderWord: PropTypes.string
   };
 
   static defaultProps = {
@@ -126,14 +127,23 @@ class Form extends React.Component {
   }
   
   render() {
-    const {children, actionUrl, textOnSubmitBtn} = this.props;
+    const {children, actionUrl, textOnSubmitBtn,reminderWord} = this.props;
     return (
-      <form method="post" styleName="form" action={actionUrl}>
-        {this.state.fields}
-        <div styleName="subbtn-line">
-          <SubmitBtn text={textOnSubmitBtn} />
-        </div>
-      </form>
+      <div >
+        {
+          reminderWord && (
+            <p styleName="reminder">{reminderWord}</p>
+          )
+        }
+
+        <form method="post" styleName="form" action={actionUrl}>
+
+          {this.state.fields}
+          <div styleName="subbtn-line">
+            <SubmitBtn text={textOnSubmitBtn} />
+          </div>
+        </form>
+      </div>
     )
   }
 }
