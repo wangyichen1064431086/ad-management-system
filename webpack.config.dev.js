@@ -9,7 +9,7 @@ module.exports = {
   // enhance debugging by adding meta info for the browser devtools(通过为浏览器devtools添加元信息来增强调试功能)
 
   entry: {
-    app: ['./client/js/app.js'],
+    app: ['./client/js/app.js','./client/scss/app.scss'],
     adForNews: ['./client/js/ad-subscription/adForNews.js','./client/scss/ad-subscription/adForNews.scss']
     //adForNews: ['./client/js/adForNews.js']
   },
@@ -27,7 +27,7 @@ module.exports = {
         path.join(__dirname, 'client','js')
       ],
       loaders: ['babel-loader']//Rule.loaders is an alias to Rule.use.
-    }, {
+    }, { //for react css module
       test: /\.scss$/,
       include: [
         //path.resolve(__dirname, 'client/scss'),
@@ -35,11 +35,12 @@ module.exports = {
         path.resolve(__dirname, 'node_modules')//不起作用
       ],
       loader: sassLoader
-    },{
+    },{// for normal scss
       resource: {
         test: /\.scss$/,
         or: [
           path.join(__dirname, 'client', 'scss','ad-subscription'),
+          path.join(__dirname, 'client', 'scss','app.scss')
         ]
       },
       use: [ 

@@ -76,6 +76,7 @@ const router = new Router();
 const adResultRouter = new Router();
 const dataPostRouter = new Router();
 
+///management page router
 router.get('/adfornews', async ctx => {
   console.log('get!!!!')
   ctx.body = await render('app.html', {
@@ -84,6 +85,7 @@ router.get('/adfornews', async ctx => {
   })
 });
 
+///ad showing router
 adResultRouter.get('/fornews', async ctx => {
   const adData = jetpack.read('./server/data/ad-subscription/adForNews.json','json');
   console.log(adData);
@@ -91,6 +93,7 @@ adResultRouter.get('/fornews', async ctx => {
 });
 router.use('/ad', adResultRouter.routes()); //Nested routers 嵌套路由
 
+//ad poster router
 dataPostRouter.post('/fornews',  ctx => {
   const data = ctx.request.body;
   data.adTitle = "adForNews";
@@ -110,6 +113,7 @@ dataPostRouter.get('/fornews', ctx => {
 });
 
 router.use('/datapost', dataPostRouter.routes());
+
 
 app.use(router.routes());
 
