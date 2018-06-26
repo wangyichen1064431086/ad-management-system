@@ -27,7 +27,8 @@ var env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
   new nunjucks.FileSystemLoader(
     [
       path.resolve(__dirname, 'views'),
-      path.resolve(__dirname, 'views/ad-subscription')
+      path.resolve(__dirname, 'views/results'),
+      path.resolve(__dirname, 'views/results/ad-subscription')
     ],
     {
       watch:false,
@@ -73,37 +74,52 @@ app.use(webpackMiddleware({
 }));
 
 const router = new Router();
-const adResultRouter = new Router();
+
+const manageRouter = new Router();
+const resultRouter = new Router();
 const dataPostRouter = new Router();
 
+//url参数可以为:adForNews
+
 ///management page router
-router.get('/adfornews', async ctx => {
+manageRouter.get('/ad-subscription/:name', async ctx => { //name为adForNews
   console.log('get!!!!')
   ctx.body = await render('app.html', {
     demoName: 'FTC Ad Management System',
-    defaultCcode: '12345'
+    chunkName: `manage_${ctx.params.name}`,
   })
 });
 
-///ad showing router
-adResultRouter.get('/fornews', async ctx => {
-  const adData = jetpack.read('./server/data/ad-subscription/adForNews.json','json');
-  console.log(adData);
-  ctx.body = await render('adForNews.html', adData);
-});
-router.use('/ad', adResultRouter.routes()); //Nested routers 嵌套路由
+router.use('/manage', manageRouter.routes());
 
-//ad poster router
-dataPostRouter.post('/fornews',  ctx => {
+///ad result showing router
+resultRouter.get('/ad-subscription/:name', async ctx => {
+  const name = ctx.params.name;
+  const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
+  console.log(adData);
+  ctx.body = await render(`${name}.html`, Object.assign(
+    adData,
+    {
+      chunkName: `result_${name}`
+    }
+  ));
+});
+router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
+
+
+//ad post router
+dataPostRouter.post('/ad-subscription/:name',  ctx => {
+  const name = ctx.params.name;
   const data = ctx.request.body;
-  data.adTitle = "adForNews";
-  data.styleName = "adForNews";
+  data.adTitle = name;
+  data.styleName = name;
   const jsonToWrite = JSON.stringify(data);
-  jetpack.writeAsync('./server/data/ad-subscription/adForNews.json', jsonToWrite);
+  jetpack.writeAsync(`./server/data/ad-subscription/${name}.json`, jsonToWrite);
   ctx.body = {
     'ok': true //如果提交Ajax不是默认行为，那么可以在button的onSubmit的事件监听函数的fetch post的回调函数判断是否提交成功
   }
-  ctx.redirect('/datapost/postsuccess');
+  ctx.redirect('/data/postsuccess');
+  //ctx.redirect('/adfornews');
   /** NOTE: ctx.redirect:
    * 同response.redirect, 执行 [302] 重定向到 url.
    * 字符串 “back” 是特别提供Referrer支持的，当Referrer不存在时，使用 alt 或“/”
@@ -111,23 +127,34 @@ dataPostRouter.post('/fornews',  ctx => {
    。
   */
 });
-dataPostRouter.get('/postsuccess', ctx => {
-  ctx.body = '提交成功！ 2s后返回之前的页面...';
-  //ctx.redirect('/adfornews');
-
-  new Promise(resolve => { //QUEST:没有用? Why??
-    setTimeout(function() {
-      ctx.redirect('/adfornews');
-      resolve();
-    }, 2000);
-  });
-  
-})
-dataPostRouter.get('/fornews', ctx => {
-  ctx.body = jetpack.read('./server/data/ad-subscription/adForNews.json','json');
+dataPostRouter.get('/ad-subscription/:name', ctx => {
+  const name = ctx.params.name;
+  ctx.body = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
 });
+const delay = ms => new Promise(
+  resolve => setTimeout(
+    resolve,
+    ms
+  )
+);
+dataPostRouter.get('/postsuccess', (ctx, next) => {
+  ctx.body = '提交成功!';
+  //next();
+}/*, async (ctx, next) => {
+  console.log('go to next');
+  await delay(2000);
+  console.log('after delay');
+  await next();
+}, ctx => { //不起作用
+  console.log('go to next 2');
+  console.log(ctx);
+  ctx.body = '新的页面';
+  console.log(ctx);
+  ctx.redirect('back');
+}*/);
 
-router.use('/datapost', dataPostRouter.routes());
+  
+router.use('/data', dataPostRouter.routes());
 
 
 app.use(router.routes());

@@ -30,7 +30,7 @@ ReactDOM.render(
     <p className="gotoresult">
       前往<a href="/result/ad-subscription/adfornews" target="_blank">对应h5作品</a>查看效果O(∩_∩)O
     </p>
-    <Form actionUrl="/data/ad-subscription/adfornews" reminderWord="请根据广告实际需要编辑数据:">
+    <Form actionUrl="/data/ad-subscription/adForNews" reminderWord="请根据广告实际需要编辑数据:">
       <TextInput name="ccode" label="ccode编号" info="请输入广告的ccode" placeholder="例：2G186012" />
       <TextInput name="topTitle" label="顶部标题" info="请输入广告的顶部标题" placeholder="例：付费热门文章" />
 

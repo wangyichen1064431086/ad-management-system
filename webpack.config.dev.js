@@ -9,9 +9,8 @@ module.exports = {
   // enhance debugging by adding meta info for the browser devtools(通过为浏览器devtools添加元信息来增强调试功能)
 
   entry: {
-    app: ['./client/js/app.js','./client/scss/app.scss'],
-    adForNews: ['./client/js/ad-subscription/adForNews.js','./client/scss/ad-subscription/adForNews.scss']
-    //adForNews: ['./client/js/adForNews.js']
+    manage_adfornews: ['./client/js/app.js','./client/scss/app.scss'],
+    result_adfornews: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForNews.scss']
   },
   output: {
      // options related to how webpack emits results
@@ -39,7 +38,7 @@ module.exports = {
       resource: {
         test: /\.scss$/,
         or: [
-          path.join(__dirname, 'client', 'scss','ad-subscription'),
+          path.join(__dirname, 'client', 'scss','results'),
           path.join(__dirname, 'client', 'scss','app.scss')
         ]
       },
