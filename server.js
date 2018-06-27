@@ -91,6 +91,9 @@ manageRouter.get('/ad-subscription/:name', async ctx => { //name为adForNews
 });
 
 router.use('/manage', manageRouter.routes());
+router.get('/', ctx => {//默认重定向
+  ctx.redirect('/manage/ad-subscription/adfornews');
+});
 
 ///ad result showing router
 resultRouter.get('/ad-subscription/:name', async ctx => {
@@ -105,7 +108,6 @@ resultRouter.get('/ad-subscription/:name', async ctx => {
   ));
 });
 router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
-
 
 //ad post router
 dataPostRouter.post('/ad-subscription/:name',  ctx => {
