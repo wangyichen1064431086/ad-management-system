@@ -7,7 +7,9 @@ import { pushdownMenuData, signData, channelData} from '../../data/forHeader';
 import Form from '../../components/Form';
 import TextInput from '../../components/TextInput';
 
-//import appstyle from './scss/app.scss';
+channelData[0].subs[3] = Object.assign(channelData[0].subs[3], {
+  url:'#'
+});
 
 ReactDOM.render(
   <div>

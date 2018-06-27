@@ -8,6 +8,9 @@ import Form from '../../components/Form';
 import TextInput from '../../components/TextInput';
 
 //import appstyle from './scss/app.scss';
+channelData[0].subs[0] = Object.assign(channelData[0].subs[0], {
+  url:'#'
+});//MARK:修改导航栏到当前页面的频道url为'#'
 
 ReactDOM.render(
   <div>
