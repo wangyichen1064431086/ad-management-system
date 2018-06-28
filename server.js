@@ -139,7 +139,7 @@ const delay = ms => new Promise(
     ms
   )
 );
-dataPostRouter.get('/postsuccess', (ctx, next) => {
+dataPostRouter.get('/postsuccess/:name', (ctx, next) => {
   ctx.body = '提交成功!';
   //next();
 }/*, async (ctx, next) => {
