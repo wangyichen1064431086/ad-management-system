@@ -30,9 +30,9 @@ ReactDOM.render(
       searchPlaceHolder={"输入年月日‘xxxx-xx-xx’可搜索该日存档" }
     />
     <p className="gotoresult">
-      前往<a href="/result/ad-subscription/adforradio300_250" target="_blank">对应h5作品</a>查看效果O(∩_∩)O
+      前往<a href="/result/adforradio300_250" target="_blank">对应h5作品</a>查看效果O(∩_∩)O
     </p>
-    <Form actionUrl="/data/ad-subscription/adforradio300_250" reminderWord="请根据广告实际需要编辑数据:">
+    <Form actionUrl="/data/adforradio300_250" reminderWord="请根据广告实际需要编辑数据:">
       <TextInput name="ccode" label="ccode编号" info="请输入广告的ccode" placeholder="例：2G186011" />
       <TextInput name="topTitle" label="顶部标题" info="请输入广告的顶部标题" placeholder="例：英语学习，付费会员专享 &gt; " />
 

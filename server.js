@@ -77,26 +77,25 @@ const router = new Router();
 
 const manageRouter = new Router();
 const resultRouter = new Router();
-const dataPostRouter = new Router();
-
+const dataApiRouter = new Router();
+const postResultRouter = new Router();
 //url参数可以为:adForNews
 
 ///management page router
-manageRouter.get('/ad-subscription/:name', async ctx => { //name为adForNews
-  console.log('get!!!!')
+manageRouter.get('/:name', async ctx => { //name为adForNews
   ctx.body = await render('app.html', {
     demoName: 'FTC Ad Management System',
     chunkName: `manage_${ctx.params.name}`,
-  })
+  });
 });
 
 router.use('/manage', manageRouter.routes());
 router.get('/', ctx => {//默认重定向
-  ctx.redirect('/manage/ad-subscription/adfornews');
+  ctx.redirect('/manage/adfornews');
 });
 
 ///ad result showing router
-resultRouter.get('/ad-subscription/:name', async ctx => {
+resultRouter.get('/:name', async ctx => {
   const name = ctx.params.name;
   const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
   console.log(adData);
@@ -110,7 +109,7 @@ resultRouter.get('/ad-subscription/:name', async ctx => {
 router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
 
 //ad post router
-dataPostRouter.post('/ad-subscription/:name',  ctx => {
+dataApiRouter.post('/:name',  ctx => {
   const name = ctx.params.name;
   const data = ctx.request.body;
   data.adTitle = name;
@@ -120,7 +119,7 @@ dataPostRouter.post('/ad-subscription/:name',  ctx => {
   ctx.body = {
     'ok': true //如果提交Ajax不是默认行为，那么可以在button的onSubmit的事件监听函数的fetch post的回调函数判断是否提交成功
   }
-  ctx.redirect('/data/postsuccess');
+  ctx.redirect(`/postresult/success/${name}`);
   //ctx.redirect('/adfornews');
   /** NOTE: ctx.redirect:
    * 同response.redirect, 执行 [302] 重定向到 url.
@@ -129,7 +128,7 @@ dataPostRouter.post('/ad-subscription/:name',  ctx => {
    。
   */
 });
-dataPostRouter.get('/ad-subscription/:name', ctx => {
+dataApiRouter.get('/:name', ctx => {
   const name = ctx.params.name;
   ctx.body = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
 });
@@ -139,9 +138,17 @@ const delay = ms => new Promise(
     ms
   )
 );
-dataPostRouter.get('/postsuccess/:name', (ctx, next) => {
-  ctx.body = '提交成功!';
-  //next();
+router.use('/data', dataApiRouter.routes());
+
+
+postResultRouter.get('/success/:name', async ctx => {
+  //ctx.body = '提交成功!';
+  const name = ctx.params.name;
+  ctx.body = await render('postresult.html', {
+    pageName: 'Post Success Page',
+    resultName: name,
+    chunkName: `postresult`,
+  });
 }/*, async (ctx, next) => {
   console.log('go to next');
   await delay(2000);
@@ -154,10 +161,7 @@ dataPostRouter.get('/postsuccess/:name', (ctx, next) => {
   console.log(ctx);
   ctx.redirect('back');
 }*/);
-
-  
-router.use('/data', dataPostRouter.routes());
-
+router.use('/postresult', postResultRouter.routes());
 
 app.use(router.routes());
 

@@ -16,7 +16,8 @@ module.exports = {
     result_adfornews: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForNews.scss'],
     result_adforradio: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForRadio.scss'],
     result_adfornews300_250: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForNews300-250.scss'],
-    result_adforradio300_250: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForRadio300-250.scss']
+    result_adforradio300_250: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForRadio300-250.scss'],
+    postresult:['./client/scss/postresult.scss']
   },
   output: {
      // options related to how webpack emits results
@@ -45,7 +46,8 @@ module.exports = {
         test: /\.scss$/,
         or: [
           path.join(__dirname, 'client', 'scss','results'),
-          path.join(__dirname, 'client', 'scss','app.scss')
+          path.join(__dirname, 'client', 'scss','app.scss'),
+          path.join(__dirname, 'client', 'scss', 'postresult.scss')
         ]
       },
       use: [ 

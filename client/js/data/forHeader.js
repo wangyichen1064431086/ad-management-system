@@ -57,22 +57,22 @@ const channelData = [
     "subs":[
       {
         "name":"adForNews",
-        "url":"/manage/ad-subscription/adfornews",
+        "url":"/manage/adfornews",
         "order":0
       },
       {
         "name":"adForRadio",
-        "url":"/manage/ad-subscription/adforradio",
+        "url":"/manage/adforradio",
         "order":1
       },
       {
         "name":"adForNews300-250",
-        "url":"/manage/ad-subscription/adfornews300_250",
+        "url":"/manage/adfornews300_250",
         "order":2
       },
       {
         "name":"adForRadio300-250",
-        "url":"/manage/ad-subscription/adforradio300_250",
+        "url":"/manage/adforradio300_250",
         "order":3
       }
     ]  
