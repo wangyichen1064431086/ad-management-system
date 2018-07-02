@@ -175,6 +175,6 @@ router.use('/postresult', postResultRouter.routes());
 
 app.use(router.routes());
 
-app.listen(8000, () => { //NOTE: 'listening'事件，Node的原生事件，在调用server.listen()后触发
-  console.log('Listening 8000');
+app.listen(5000, () => { //NOTE: 'listening'事件，Node的原生事件，在调用server.listen()后触发
+  console.log('Listening 5000');
 });
