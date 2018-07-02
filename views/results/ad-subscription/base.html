@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ adTitle }}</title>
-    <link rel="stylesheet" type="text/css" href="/static/{{chunkName}}.css">
+    <link rel="stylesheet" type="text/css" href="{{cssSource}}">
   </head>
   <body>
     {% block content %}
     {% endblock %}
 
-    <script src="/static/{{chunkName}}.js"></script>
+    <script src="{{jsSource}}"></script>
     
   </body>

@@ -12,7 +12,7 @@ const jetpack = require('fs-jetpack');
 
 const app = new Koa();
 const compiler = webpack(config);
-
+const nodeEnv = process.env.NODE_ENV || '';
 
 const webpackDevOptions = {
   noInfo: true,
@@ -83,9 +83,13 @@ const postResultRouter = new Router();
 
 ///management page router
 manageRouter.get('/:name', async ctx => { //name为adForNews
+  const chunkName = `manage_${ctx.params.name}`;
+  const cssSource = nodeEnv === 'development' ? `/static/${chunkName}.css`: `./static/${chunkName}.css`; 
+  const jsSource = nodeEnv === 'development' ? `/static/${chunkName}.js`: `./static/${chunkName}.js`; 
   ctx.body = await render('app.html', {
     demoName: 'FTC Ad Management System',
-    chunkName: `manage_${ctx.params.name}`,
+    cssSource: cssSource,
+    jsSource: jsSource
   });
 });
 
@@ -97,12 +101,16 @@ router.get('/', ctx => {//默认重定向
 ///ad result showing router
 resultRouter.get('/:name', async ctx => {
   const name = ctx.params.name;
+  const chunkName = `result_${name}`;
+  const cssSource = nodeEnv === 'development' ? `/static/${chunkName}.css`: `./static/${chunkName}.css`; 
+  const jsSource = nodeEnv === 'development' ? `/static/${chunkName}.js`: `./static/${chunkName}.js`; 
   const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
-  console.log(adData);
+ // console.log(adData);
   ctx.body = await render(`${name}.html`, Object.assign(
     adData,
     {
-      chunkName: `result_${name}`
+      cssSource:cssSource,
+      jsSource:jsSource
     }
   ));
 });
@@ -144,10 +152,12 @@ router.use('/data', dataApiRouter.routes());
 postResultRouter.get('/success/:name', async ctx => {
   //ctx.body = '提交成功!';
   const name = ctx.params.name;
+  const chunkName = 'postresult'
+  const cssSource = nodeEnv === 'development' ? `/static/${chunkName}.css`: `./static/${chunkName}.css`; 
   ctx.body = await render('postresult.html', {
     pageName: 'Post Success Page',
     resultName: name,
-    chunkName: `postresult`,
+    cssSource: cssSource,
   });
 }/*, async (ctx, next) => {
   console.log('go to next');
