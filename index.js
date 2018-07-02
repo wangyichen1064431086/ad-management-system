@@ -9,10 +9,10 @@ const config = require('./webpack.config.dev');
 const webpackMiddleware = require('koa-webpack');
 const nunjucks = require('nunjucks');
 const jetpack = require('fs-jetpack');
-
+const inline = require('./middlewares/inline');
 const app = new Koa();
 const compiler = webpack(config);
-const nodeEnv = process.env.NODE_ENV || '';
+//const nodeEnv = process.env.NODE_ENV || '';
 
 const webpackDevOptions = {
   noInfo: true,
@@ -61,9 +61,13 @@ function render(template, context) {
     });
   });
 }
-
+app.use(async (ctx,next) => {
+  ctx.state.isProduction = process.env.NODE_ENV === 'production';
+  console.log(ctx.state);
+  await next(); //NOTE: koa中间件必须这样使用async, await
+});
 app.use(logger());
-
+app.use(inline());
 app.use(bodyParser());
 
 app.use(webpackMiddleware({
@@ -84,10 +88,11 @@ const postResultRouter = new Router();
 ///management page router
 manageRouter.get('/:name', async ctx => { //name为adForNews
   const chunkName = `manage_${ctx.params.name}`;
-  const cssSource = nodeEnv === 'development' ? `/static/${chunkName}.css`: `./static/${chunkName}.css`; 
-  const jsSource = nodeEnv === 'development' ? `/static/${chunkName}.js`: `./static/${chunkName}.js`; 
+  const cssSource =ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
+  const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
   ctx.body = await render('app.html', {
     demoName: 'FTC Ad Management System',
+    isProduction: ctx.state.isProduction,
     cssSource: cssSource,
     jsSource: jsSource
   });
@@ -102,13 +107,14 @@ router.get('/', ctx => {//默认重定向
 resultRouter.get('/:name', async ctx => {
   const name = ctx.params.name;
   const chunkName = `result_${name}`;
-  const cssSource = nodeEnv === 'development' ? `/static/${chunkName}.css`: `./static/${chunkName}.css`; 
-  const jsSource = nodeEnv === 'development' ? `/static/${chunkName}.js`: `./static/${chunkName}.js`; 
+  const cssSource = ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
+  const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
   const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
  // console.log(adData);
   ctx.body = await render(`${name}.html`, Object.assign(
     adData,
     {
+      isProduction: ctx.state.isProduction,
       cssSource:cssSource,
       jsSource:jsSource
     }
@@ -153,10 +159,11 @@ postResultRouter.get('/success/:name', async ctx => {
   //ctx.body = '提交成功!';
   const name = ctx.params.name;
   const chunkName = 'postresult'
-  const cssSource = nodeEnv === 'development' ? `/static/${chunkName}.css`: `./static/${chunkName}.css`; 
+  const cssSource = ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
   ctx.body = await render('postresult.html', {
     pageName: 'Post Success Page',
     resultName: name,
+    isProduction: ctx.state.isProduction,
     cssSource: cssSource,
   });
 }/*, async (ctx, next) => {

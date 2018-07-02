@@ -21,7 +21,7 @@ module.exports = {
   },
   output: {
      // options related to how webpack emits results
-    path: path.resolve(__dirname, 'dist/static'),
+    path: path.resolve(__dirname, 'static'),
     filename: '[name].js',
   },
 
