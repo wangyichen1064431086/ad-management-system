@@ -1,3 +1,6 @@
+const path = require('path');
+const interpreter = path.resolve(process.env.HOME, 'n/n/versions/node/10.3.0/bin/node');
+
 module.exports = {
   /**
    * Application configuration section
@@ -9,38 +12,20 @@ module.exports = {
     {
       name      : 'h5-management-system',
       script    : 'index.js',
+      cwd: __dirname,
+      interpreter:interpreter,
       env: {
-        COMMON_VARIABLE: 'true'
+        NODE_ENV: "development",
+        PORT:5000
       },
       env_production : {
-        NODE_ENV: 'production'
-      }
+        NODE_ENV: 'production',
+        PORT:5000,
+        LOG_DIR: path.resolve(process.env.HOME, 'logs')
+      },
+      max_restart: 10,
+      error_file: path.resolve(process.env.HOME, 'logs/h5-management-system-err.log'),
+      out_file: path.resolve(process.env.HOME, 'logs/h5-management-system-out.log')
     }
-  ],
-
-  /**
-   * Deployment section
-   * http://pm2.keymetrics.io/docs/usage/deployment/
-   */
-  deploy : {
-    production : {
-      user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
-    },
-    dev : {
-      user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/development',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env dev',
-      env  : {
-        NODE_ENV: 'dev'
-      }
-    }
-  }
+  ]
 };
