@@ -1,10 +1,10 @@
 {
-  "name": "ad-management-system",
+  "name": "h5-management-system",
   "version": "1.0.0",
   "description": "The system for editing the content data of h5 ads and showing the different ad formats.",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node server.js",
+    "start": "cross-env NODE_ENV=development node index.js",
     "test": "cross-env NODE_ENV=testing jest",
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wangyichen1064431086/ad-management-system.git"
+    "url": "git+https://github.com/wangyichen1064431086/h5-management-system.git"
   },
   "files": [
     "build"
@@ -25,9 +25,9 @@
   "author": "wangyichen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wangyichen1064431086/ad-management-system/issues"
+    "url": "https://github.com/wangyichen1064431086/h5-management-system/issues"
   },
-  "homepage": "https://github.com/wangyichen1064431086/ad-management-system#readme",
+  "homepage": "https://github.com/wangyichen1064431086/h5-management-system#readme",
   "dependencies": {
     "@ftchinese/ftc-header-react-new": "^1.0.2",
     "classnames": "^2.2.5",
