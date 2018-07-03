@@ -15,9 +15,6 @@
     "type": "git",
     "url": "git+https://github.com/wangyichen1064431086/h5-management-system.git"
   },
-  "files": [
-    "build"
-  ],
   "keywords": [
     "react",
     "ad",
