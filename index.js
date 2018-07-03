@@ -87,6 +87,12 @@ const postResultRouter = new Router();
 
 ///management page router
 manageRouter.get('/:name', async ctx => { //name为adForNews
+  /*
+  console.log(ctx.request.headers);
+  ctx.request.headers = {
+    'Cache-Control':'max-age=31536000'//没用，待研究
+  }
+  */
   const chunkName = `manage_${ctx.params.name}`;
   const cssSource =ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
   const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
@@ -96,6 +102,8 @@ manageRouter.get('/:name', async ctx => { //name为adForNews
     cssSource: cssSource,
     jsSource: jsSource
   });
+  //ctx.response.set('Cache-Control', 'public', 'max-age=31536000');
+  ctx.response.set('Cache-Control', 'public, max-age=86400');
 });
 
 router.use('/manage', manageRouter.routes());
@@ -105,6 +113,11 @@ router.get('/', ctx => {//默认重定向
 
 ///ad result showing router
 resultRouter.get('/:name', async ctx => {
+  /*
+  ctx.request.headers = {
+    'Cache-Control':'max-age=60'
+  }
+  */
   const name = ctx.params.name;
   const chunkName = `result_${name}`;
   const cssSource = ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
@@ -119,6 +132,8 @@ resultRouter.get('/:name', async ctx => {
       jsSource:jsSource
     }
   ));
+  ctx.response.set('Cache-Control', 'public, max-age=60');
+
 });
 router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
 
