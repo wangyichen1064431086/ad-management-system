@@ -9,7 +9,8 @@
     "clean": "rimraf static",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:start": "cross-env NODE_ENV=production node index.js",
-    "build": "npm run clean && npm run build:webpack && npm run build:start"
+    "build": "npm run clean && npm run build:webpack && npm run build:start",
+    "deploy":"npm run clean && npm run build:webpack && pm2 startOrRestart ecosystem.config.js --env production"
   },
   "repository": {
     "type": "git",
