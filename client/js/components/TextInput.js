@@ -8,7 +8,7 @@ import CSSModules from 'react-css-modules';
 
 import form from '../../scss/components/form.scss';
 
-import emitter from './events';
+//import emitter from './events';
 
 class TextInput extends React.Component {
   static propTypes = {
@@ -50,9 +50,9 @@ class TextInput extends React.Component {
   }
   */
   handleChange(e) {
-    console.log('onchange');
-    console.log('fetchedValue:');
-    console.log(this.fetchedValue);
+    // console.log('onchange');
+    // console.log('fetchedValue:');
+    // console.log(this.fetchedValue);
     this.setState({
       value: e.target.value || this.fetchedValue
     })

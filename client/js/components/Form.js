@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 
 
 import SubmitBtn from './SubmitBtn';
-import emitter from './events';
+//import emitter from './events';
 
 import form from '../../scss/components/form.scss'
 
@@ -50,21 +50,20 @@ class Form extends React.Component {
       .then(res =>
         res.json()
       ).then(result => {
-        console.log('fetch data:')
-        console.log(result) //更新children的defaultValue
-       // emitter.emit('getDefaultData', result);
+        // console.log('fetch data:')
+        // console.log(result) //更新children的defaultValue
         
         const newChildren = React.Children.map(this.props.children, child => {
           if(child.props.name) { //说明就是一个TextInput子组件
             const name = child.props.name;
-            console.log('name:');
-            console.log(name);
+            // console.log('name:');
+            // console.log(name);
 
             ///TODO:将其整理为一个常用的发方法，即找出深层obj对应于'key1[key2][key3]'的属性值
             const nameLevelArr = [];
             const nameArr = name.split(/\[|\]\[?/).filter(item => item !== '');
              // const nameArr = name.match(/\[(\w+)\]/g); //str.match与reg.exect行为模式区分
-            console.log(nameArr);
+            // console.log(nameArr);
             let newDefaultValue = result;
             while(nameArr.length) {
               const oneLevelKey = nameArr.shift();

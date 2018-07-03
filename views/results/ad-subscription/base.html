@@ -5,12 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ adTitle }}</title>
-    <link rel="stylesheet" type="text/css" href="{{cssSource}}">
+    {% if isProduction %}
+      <link inline rel="stylesheet" href="{{cssSource}}">
+    {% else %}
+      <link rel="stylesheet" href="{{cssSource}}">
+    {% endif %}
   </head>
   <body>
     {% block content %}
     {% endblock %}
 
-    <script src="{{jsSource}}"></script>
-    
+    {% if isProduction %}
+      <script inline src="{{jsSource}}"></script>
+    {% else %}
+      <script src="{{jsSource}}"></script>
+    {% endif %}
   </body>

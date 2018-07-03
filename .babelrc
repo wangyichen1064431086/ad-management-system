@@ -16,13 +16,12 @@
     },
     "production": {
       "presets": [
-        ["es2015",{"modules": false}],
+        ["es2015"],
         "stage-0",
         "react"
       ],
       "plugins": [
-        "transform-decorators-legacy",
-        "external-helpers"
+        "transform-decorators-legacy"
       ]
     }
   }
