@@ -47,12 +47,16 @@ class Form extends React.Component {
   componentDidMount() {
     const url = this.props.actionUrl;
     fetch(url)
-      .then(res =>
-        res.json()
+      .then(res => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw new Error('response status is not 200 or 200+ or 304');
+        }
       ).then(result => {
-        // console.log('fetch data:')
-        // console.log(result) //更新children的defaultValue
-        
+         console.log('fetch data:')
+        console.log(result) //更新children的defaultValue
+        console.log(typeof result);
         const newChildren = React.Children.map(this.props.children, child => {
           if(child.props.name) { //说明就是一个TextInput子组件
             const name = child.props.name;
@@ -83,7 +87,9 @@ class Form extends React.Component {
           fields: this.getFields(newChildren)
         });
 
-      })
+      }).catch(err => {
+        console.error('Error:', err.message);
+      });
   }
   
 
