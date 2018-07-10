@@ -1,1 +1,34 @@
-{"ccode":"2G186013","topTitle":"英语电台奥奥啊","headArticle":{"tag":"时尚","title":"The dark side of fast fashion","url":"http://www.ftchinese.com/interactive/12026?adchannelID=5000&exclusive#adchannelID=1100","pic":"http://i.ftimg.net/picture/3/000078213_piclink.jpg"},"articleList":[{"tag":"海外生活","title":"Foreign postings help us become more self-aware","url":"http://www.ftchinese.com/interactive/12028?adchannelID=5000&exclusive&ccode=2G186011&type=video#adchannelID=1100","pic":"http://i.ftimg.net/picture/4/000078214_piclink.jpg"},{"tag":"健康","title":"Death’s understudy: what sleep can teach medicine","url":"http://www.ftchinese.com/interactive/11925?adchannelID=1100&exclusive#adchannelID=1100","pic":"http://i.ftimg.net/picture/5/000078215_piclink.jpg"},{"tag":"单曲鉴赏","title":"The Life of a Song：Hell Hound On My Trail","url":"http://www.ftchinese.com/interactive/11934?adchannelID=1100&exclusive#adchannelID=1100","pic":"http://i.ftimg.net/picture/9/000077559_piclink.jpg"}],"adTitle":"adforradio","styleName":"adforradio"}
+{
+  "adTitle":"adForRadio",
+  "styleName":"adForRadio",
+
+  "ccode":"2G186013",
+  "topTitle":"英语电台",
+  "headArticle": {
+    "tag":"职场",
+    "title":"律师和水管工——最高枕无忧的工作？",
+    "url":"http://www.ftchinese.com/interactive/12143?adchannelID=1100&exclusive#adchannelID=1100 ",
+    "pic":"http://i.ftimg.net/picture/5/000078715_piclink.jpg"
+  },
+  "articleList": [
+    {
+      "tag":"生活",
+      "title":"离婚的学问",
+      "url":"http://www.ftchinese.com/interactive/12097?adchannelID=1100&exclusive#adchannelID=1100",
+      "pic":"http://i.ftimg.net/picture/6/000078716_piclink.jpg"
+    },
+    {
+      "tag":"管理",
+      "title":"中层经理的“辛酸泪”",
+      "url":"http://www.ftchinese.com/interactive/12111?adchannelID=1100&exclusive#adchannelID=1100",
+      "pic":"http://i.ftimg.net/picture/7/000078717_piclink.jpg"
+    },
+    {
+      "tag":"单曲鉴赏",
+      "title":"The Life of a Song：Johnny Remember Me",
+      "url":"http://www.ftchinese.com/interactive/12124?adchannelID=1100&exclusive#adchannelID=1100 ",
+      "pic":"http://i.ftimg.net/picture/9/000077559_piclink.jpg"
+    }
+  ]
+  
+}

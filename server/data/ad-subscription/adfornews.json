@@ -1,1 +1,29 @@
-{"ccode":"12345","topTitle":"德阿葡西淘汰","headArticle":{"title":"啥是A股","url":"http://www.ftchinese.com/story/001077926?exclusive","pic":"http://i.ftimg.net/picture/8/000066228_piclink.jpg"},"articleList":[{"tag":"我的视野","title":"A股入麾哇哇哇哇哇哇哇","url":"http://www.ftchinese.com/premium/001077841?archive"},{"tag":"自由与贸易","title":"全球最新贸易霸主是哪个？","url":"http://www.ftchinese.com/premium/001077906?exclusive"},{"tag":"市场在中国","title":"外企在华唉唉唉唉","url":"http://www.ftchinese.com/premium/001077859?exclusive"}],"adTitle":"adfornews","styleName":"adfornews"}
+{
+  "adTitle":"adForNews",
+  "styleName":"adForNews",
+
+  "ccode":"2G186012",
+  "topTitle":"付费热门文章",
+  "headArticle": {
+    "title":"全球消费行业迎来“千禧时刻” ",
+    "url":"http://www.ftchinese.com/story/001078109?exclusive",
+    "pic": "http://i.ftimg.net/picture/5/000078475_piclink.jpg"
+  },
+  "articleList": [
+    {
+      "tag":"全球楼市",
+      "title":"全球楼市关联度开始增大",
+      "url":"http://www.ftchinese.com/story/001077965?archive"
+    },
+    {
+      "tag":"中美贸易战",
+      "title":"Lex专栏：雨季将至的香港来信",
+      "url":"http://www.ftchinese.com/story/001077517?archive"
+    },
+    {
+      "tag":"中国保险业",
+      "title":"中国保险市场的前景",
+      "url":"http://www.ftchinese.com/story/001077964?archive"
+    }
+  ]
+}
