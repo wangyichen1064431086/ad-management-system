@@ -5,8 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode:'production',
-  devtool: 'cheap-module-eval-source-map',//This option controls if and how source maps are generated.
-  // enhance debugging by adding meta info for the browser devtools(通过为浏览器devtools添加元信息来增强调试功能)
+  //devtool: 'cheap-module-eval-source-map',//This option controls if and how source maps are generated.
+  // enhance debugging by adding meta info for the browser devtools(通过为浏览器devtools添加元信息来增强调试功能) NOTE:生产环境不要添加这个，因为会使bundle太大
 
   entry: {
     manage_adfornews: ['./client/js/manage/ad-subscription/adForNews.js','./client/scss/app.scss'],
