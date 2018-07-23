@@ -10,7 +10,7 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:start": "cross-env NODE_ENV=production node index.js",
     "build": "npm run clean && npm run build:webpack && npm run build:start",
-    "deploy":"npm run clean && npm run build:webpack && pm2 startOrRestart ecosystem.config.js --env production"
+    "deploy": "npm run clean && npm run build:webpack && pm2 startOrRestart ecosystem.config.js --env production"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/wangyichen1064431086/h5-management-system#readme",
   "dependencies": {
-    "@ftchinese/ftc-header-react-new": "^1.0.2",
+    "@ftchinese/ftc-header-react-new": "^1.2.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
