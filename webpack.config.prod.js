@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const sassLoader = 'style-loader!css-loader?modules&importLoaders&localIdentName=[name]__[local]__[hash:base64:5]!sass-loader?sourceMap=true&sourceMapContents=true';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   mode:'production',
@@ -74,6 +76,20 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename:'[name].css'
+    }),
+    new UglifyJsPlugin({
+      uglifyOptions:{
+        compress:{
+          drop_console:true
+        }
+      }
+    }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorOptions:{
+        discardComments:{
+          removeAll:true
+        }
+      }
     })
   ]
 }
