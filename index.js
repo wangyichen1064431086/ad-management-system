@@ -157,16 +157,19 @@ dataApiRouter.post('/:name',  ctx => {
    。
   */
 });
-dataApiRouter.get('/:name', ctx => {
-  const name = ctx.params.name;
-  ctx.body = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
-});
+
+/*
 const delay = ms => new Promise(
   resolve => setTimeout(
     resolve,
     ms
   )
 );
+*/
+dataApiRouter.get('/:name', async ctx => {
+  const name = ctx.params.name;
+  ctx.body = await jetpack.readAsync(`./server/data/ad-subscription/${name}.json`,'json');
+});
 router.use('/data', dataApiRouter.routes());
 
 
