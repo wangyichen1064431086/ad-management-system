@@ -9,14 +9,14 @@ module.exports = {
   // enhance debugging by adding meta info for the browser devtools(通过为浏览器devtools添加元信息来增强调试功能)
 
   entry: {
-    manage_adfornews: ['./client/js/manage/ad-subscription/adForNews.js','./client/scss/app.scss'],
-    manage_adforradio:['./client/js/manage/ad-subscription/adForRadio.js','./client/scss/app.scss'],
-    manage_adfornews300_250:['./client/js/manage/ad-subscription/adForNews300-250.js','./client/scss/app.scss'],
-    manage_adforradio300_250:['./client/js/manage/ad-subscription/adForRadio300-250.js','./client/scss/app.scss'],
-    result_adfornews: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForNews.scss'],
-    result_adforradio: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForRadio.scss'],
-    result_adfornews300_250: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForNews300-250.scss'],
-    result_adforradio300_250: ['./client/js/results/adSubscription.js','./client/scss/results/ad-subscription/adForRadio300-250.scss'],
+    manage_adfornews: ['./client/js/manage/adfornews.js','./client/scss/app.scss'],
+    manage_adforradio:['./client/js/manage/adforradio.js','./client/scss/app.scss'],
+    manage_adfornews300_250:['./client/js/manage/adfornews300-250.js','./client/scss/app.scss'],
+    manage_adforradio300_250:['./client/js/manage/adforradio300-250.js','./client/scss/app.scss'],
+    result_adfornews: ['./client/js/result/adsubscription.js','./client/scss/result/adfornews.scss'],
+    result_adforradio: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio.scss'],
+    result_adfornews300_250: ['./client/js/result/adsubscription.js','./client/scss/result/ad-subscription/adfornews300-250.scss'],
+    result_adforradio300_250: ['./client/js/result/adsubscription.js','./client/scss/result/ad-subscription/adforradio300-250.scss'],
     postresult:['./client/scss/postresult.scss']
   },
   output: {

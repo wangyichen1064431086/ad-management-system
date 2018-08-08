@@ -9,7 +9,7 @@
     "webpackforprod": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start:preparepartials": "cross-env NODE_ENV=development node index-prepare",
     "start:start": "cross-env NODE_ENV=development nodemon index.js",
-    "start": "npm run start:preparePartials && npm run start:start",
+    "start": "npm run start:preparepartials && npm run start:start",
     "build:preparepartials": "cross-env NODE_ENV=production node index-prepare",
     "build:start": "cross-env NODE_ENV=production nodemon index.js",
     "build": "npm run clean && npm run webpackforprod && npm run build:preparepartials && npm run build:start",
