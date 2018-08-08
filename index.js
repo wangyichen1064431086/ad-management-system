@@ -27,6 +27,9 @@ var env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
   {autoescape: false}
 );
 env.addFilter('addSearchParam', (str, param) => {
+  if(!str || !param) {
+    return;
+  }
   const hashIndex = str.indexOf('#');
   const hashStr = hashIndex > 0 ? str.substr(hashIndex) : '';
   const strWithOutHashStr = hashIndex > 0 ? str.substring(0, hashIndex) : str;
@@ -97,10 +100,10 @@ manageRouter.get('/:name', async ctx => { //name为adForNews
   const cssSource =ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
   const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
   ctx.body = await render('app.html', {
-    // demoName: 'FTC Ad Management System',
-    // isProduction: ctx.state.isProduction,
-    // cssSource: cssSource,
-    // jsSource: jsSource
+    demoName: 'FTC Ad Management System',
+    isProduction: ctx.state.isProduction,
+    cssSource: cssSource,
+    jsSource: jsSource
   });
   //ctx.response.set('Cache-Control', 'public', 'max-age=31536000');
   ctx.response.set('Cache-Control', 'public, max-age=86400');
@@ -125,7 +128,6 @@ resultRouter.get('/:name', async ctx => {
   const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
  // console.log(adData);
   ctx.body = await render(`${name}.html`, 
-   /*
     Object.assign(
       adData,
       {
@@ -134,7 +136,6 @@ resultRouter.get('/:name', async ctx => {
         jsSource:jsSource
       }
     )
-    */
   );
   ctx.response.set('Cache-Control', 'public, max-age=60');
 
