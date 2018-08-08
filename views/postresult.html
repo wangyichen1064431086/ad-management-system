@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ pageName }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#
     {% if isProduction %}
       <link inline rel="stylesheet" href="{{cssSource}}">
     {% else %}
     <link rel="stylesheet" href="{{cssSource}}">
     {% endif %}
+    #}
   </head>
 
   <body>

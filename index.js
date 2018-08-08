@@ -60,7 +60,7 @@ app.use(inline());
 app.use(bodyParser());
 
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
   const config = require('./webpack.config.dev');
   const webpackMiddleware = require('koa-webpack');
@@ -97,10 +97,10 @@ manageRouter.get('/:name', async ctx => { //name为adForNews
   const cssSource =ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
   const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
   ctx.body = await render('app.html', {
-    demoName: 'FTC Ad Management System',
-    isProduction: ctx.state.isProduction,
-    cssSource: cssSource,
-    jsSource: jsSource
+    // demoName: 'FTC Ad Management System',
+    // isProduction: ctx.state.isProduction,
+    // cssSource: cssSource,
+    // jsSource: jsSource
   });
   //ctx.response.set('Cache-Control', 'public', 'max-age=31536000');
   ctx.response.set('Cache-Control', 'public, max-age=86400');
@@ -124,21 +124,25 @@ resultRouter.get('/:name', async ctx => {
   const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
   const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
  // console.log(adData);
-  ctx.body = await render(`${name}.html`, Object.assign(
-    adData,
-    {
-      isProduction: ctx.state.isProduction,
-      cssSource:cssSource,
-      jsSource:jsSource
-    }
-  ));
+  ctx.body = await render(`${name}.html`, 
+   /*
+    Object.assign(
+      adData,
+      {
+        isProduction: ctx.state.isProduction,
+        cssSource:cssSource,
+        jsSource:jsSource
+      }
+    )
+    */
+  );
   ctx.response.set('Cache-Control', 'public, max-age=60');
 
 });
 router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
 
 //ad post router
-dataApiRouter.post('/:name',  ctx => {
+dataApiRouter.post('/:name', async ctx => {
   const name = ctx.params.name;
   const data = ctx.request.body;
   data.adTitle = name;

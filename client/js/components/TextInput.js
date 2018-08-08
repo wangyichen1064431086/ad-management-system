@@ -28,7 +28,7 @@ class TextInput extends React.Component {
       //fetchedValue: '',
       value: this.props.defaultValue || '' //初始值，初始值可能会改变
     }
-    this.handleChange = this.handleChange.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
   }
   
   /*
@@ -49,14 +49,19 @@ class TextInput extends React.Component {
     emitter.removeListener(this.getDefaultValueListener);
   }
   */
+ 
   handleChange(e) {
-    // console.log('onchange');
-    // console.log('fetchedValue:');
-    // console.log(this.fetchedValue);
     this.setState({
       value: e.target.value || this.fetchedValue
     })
   }
+  /*
+  handleChange = (e) => {
+    this.setState({
+      value: e.target.value || this.fetchedValue
+    })
+  } //如果这样写，绑定时直接这样写<input onChange={this.handleChange} />
+  */
   render() {
     const {name, label, info, placeholder} = this.props;
 
@@ -64,7 +69,7 @@ class TextInput extends React.Component {
       <div styleName="onefield">
         <label htmlFor={name} styleName="textinput-label">{label}</label>
         <p styleName="textinput-info">{info}</p>
-        <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={this.state.value} onChange={this.handleChange} ref="input"/>
+        <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={this.state.value} onChange={(e)=>this.handleChange(e)} ref="input"/>
       </div>
     )
   }

@@ -4,13 +4,14 @@
   "description": "The system for editing the content data of h5 ads and showing the different ad formats.",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node index.js",
+    "start": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest",
     "clean": "rimraf static",
-    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build:start": "cross-env NODE_ENV=production node index.js",
-    "build": "npm run clean && npm run build:webpack && npm run build:start",
-    "deploy": "npm run clean && npm run build:webpack && pm2 startOrRestart ecosystem.config.js --env production"
+    "webpackforprod": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:start": "cross-env NODE_ENV=production nodemon index.js",
+    "build": "npm run clean && npm run webpackforprod && npm run build:start",
+    "deploy:start": " pm2 startOrRestart ecosystem.config.js --env production",
+    "deploy": "npm run clean && npm run webpackforprod && npm run deploy:start"
   },
   "repository": {
     "type": "git",
