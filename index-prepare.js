@@ -59,7 +59,7 @@ function renderOneView(staticResource, ext, viewDirectory) {
   );
   return new Promise(
     async function (resolve, reject) {
-      const destFileName = `${path.basename(staticResource, `.${ext}`).replace(`${viewDirectory}_`,'')}_${ext}`;
+      const destFileName = `${path.basename(staticResource, `.${ext}`).replace(`${viewDirectory}_`,'').replace(`${viewDirectory}`,'')}_${ext}`;
       const dataForRender = {
         isProduction: envIsProduction,
         source:  envIsProduction ? path.join(process.cwd(),'static',`${staticResource}`): `/static/${staticResource}`
@@ -91,7 +91,7 @@ function renderOneView(staticResource, ext, viewDirectory) {
 async function renderViews(viewDirectory, ext) {
   console.log('getResult');
   const filesArr = jetpack.find('static', {
-    matching:`${viewDirectory}_*.${ext}`,
+    matching:`${viewDirectory}*.${ext}`,
     files:true,
     directories: false,
     recursive: false
@@ -181,3 +181,4 @@ renderViews('manage','js');
 renderViews('manage','css');
 renderViews('result','js');
 renderViews('result','css');
+renderViews('postresult','css');

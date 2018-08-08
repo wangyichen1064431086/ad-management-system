@@ -19,7 +19,7 @@ module.exports = {
     result_adforradio: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio.scss'],
     result_adfornews300_250: ['./client/js/result/adsubscription.js','./client/scss/result/adfornews300_250.scss'],
     result_adforradio300_250: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio300_250.scss'],
-    postresult:['./client/scss/postresult.scss']
+    postresult_app:['./client/scss/postresult.scss']
   },
   output: {
      // options related to how webpack emits results

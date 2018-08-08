@@ -162,21 +162,32 @@ apiRouter.get('/:name', async ctx => {
 });
 router.use('/api', apiRouter.routes());
 
-/*
+
 postResultRouter.get('/success/:name', async ctx => {
-  //ctx.body = '提交成功!';
-  const name = ctx.params.name;
-  const chunkName = 'postresult'
-  const cssSource = ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
-  ctx.body = await render('postresult.html', {
+  const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
+    new nunjucks.FileSystemLoader(
+      [
+        path.resolve(__dirname, 'views/postresult'),
+        path.resolve(__dirname, 'views/postresult/partials')
+
+      ],
+      {
+        watch:false,
+        noCache: true
+      }
+    ),
+    {autoescape: false}
+  );
+const name = ctx.params.name;
+  
+  ctx.body = await render(env, 'app.html', {
     pageName: 'Post Success Page',
-    resultName: name,
-    isProduction: ctx.state.isProduction,
-    cssSource: cssSource,
+    cssSource: 'app_css.html',
+    relatedPageName: name
   });
 });
 router.use('/postresult', postResultRouter.routes());
-*/
+
 app.use(router.routes());
 
 app.listen(5000, () => {

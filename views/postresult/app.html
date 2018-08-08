@@ -6,23 +6,18 @@
     <title>{{ pageName }}</title>
     <link rel="icon" href="data:image/ico;base64,aWNv">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {#
-    {% if isProduction %}
-      <link inline rel="stylesheet" href="{{cssSource}}">
-    {% else %}
-    <link rel="stylesheet" href="{{cssSource}}">
-    {% endif %}
-    #}
+    {% include cssSource %}
+
   </head>
 
   <body>
     <p class="postsuccess">提交成功！</p>
     <div class="links">
       <p>
-        <a href="/result/{{resultName}}">前往h5页面查看效果</a>
+        <a href="/result/{{relatedPageName}}">前往h5页面查看效果</a>
       </p>
       <p>
-        <a href="/manage/{{resultName}}">返回编辑页面继续编辑</a>
+        <a href="/manage/{{relatedPageName}}">返回编辑页面继续编辑</a>
       </p>
     </div>
   </body>
