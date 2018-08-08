@@ -8,41 +8,10 @@ const bodyParser = require('koa-bodyparser');
 
 const nunjucks = require('nunjucks');
 const jetpack = require('fs-jetpack');
-const inline = require('./middlewares/inline');
 const app = new Koa();
 //const nodeEnv = process.env.NODE_ENV || '';
 
-var env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
-  new nunjucks.FileSystemLoader(
-    [
-      path.resolve(__dirname, 'views'),
-      path.resolve(__dirname, 'views/results'),
-      path.resolve(__dirname, 'views/results/ad-subscription')
-    ],
-    {
-      watch:false,
-      noCache: true
-    }
-  ),
-  {autoescape: false}
-);
-env.addFilter('addSearchParam', (str, param) => {
-  if(!str || !param) {
-    return;
-  }
-  const hashIndex = str.indexOf('#');
-  const hashStr = hashIndex > 0 ? str.substr(hashIndex) : '';
-  const strWithOutHashStr = hashIndex > 0 ? str.substring(0, hashIndex) : str;
-  
-  if (strWithOutHashStr.includes('?')) {
-    //去掉原有ccode
-    const strWithOutHashStrWithOutCcode = strWithOutHashStr.replace(/ccode=[a-zA-Z0-9]+&?/,'');
-    return `${strWithOutHashStrWithOutCcode}&${param}${hashStr}`;
-  } 
-  return `${strWithOutHashStr}?${param}${hashStr}`;
-});
-
-function render(template, context) {
+function render(env, template, context) {
   return new Promise(function(resolve, reject) {
     env.render(template, context, function(err, res) {
       if (err) {
@@ -59,7 +28,6 @@ app.use(async (ctx,next) => {
   await next(); //NOTE: koa中间件必须这样使用async, await
 });
 app.use(logger());
-app.use(inline());
 app.use(bodyParser());
 
 
@@ -89,51 +57,84 @@ const router = new Router();
 
 const manageRouter = new Router();
 const resultRouter = new Router();
-const dataApiRouter = new Router();
+const apiRouter = new Router();
 const postResultRouter = new Router();
 //url参数可以为:adForNews
 
 ///management page router
 manageRouter.get('/:name', async ctx => { //name为adForNews
 
-  const chunkName = `manage_${ctx.params.name}`;
-  const cssSource =ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
-  const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
-  ctx.body = await render('app.html', {
-    demoName: 'FTC Ad Management System',
-    isProduction: ctx.state.isProduction,
-    cssSource: cssSource,
-    jsSource: jsSource
+  const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
+    new nunjucks.FileSystemLoader(
+      [
+        path.resolve(__dirname, 'views/manage'),
+        path.resolve(__dirname, 'views/manage/partials')
+
+      ],
+      {
+        watch:false,
+        noCache: true
+      }
+    ),
+    {autoescape: false}
+  );
+  ctx.body = await render(env, 'app.html', {
+    pageName: 'FTC Ad Management System',
+    cssSource: `${ctx.params.name}_css.html`,
+    jsSource: `${ctx.params.name}_js.html`
   });
   //ctx.response.set('Cache-Control', 'public', 'max-age=31536000');
   ctx.response.set('Cache-Control', 'public, max-age=86400');
 });
 
 router.use('/manage', manageRouter.routes());
+
+
 router.get('/', ctx => {//默认重定向
   ctx.redirect('/manage/adfornews');
 });
 
 ///ad result showing router
 resultRouter.get('/:name', async ctx => {
-  /*
-  ctx.request.headers = {
-    'Cache-Control':'max-age=60'
-  }
-  */
+  const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
+    new nunjucks.FileSystemLoader(
+      [
+        path.resolve(__dirname, 'views/result'),
+        path.resolve(__dirname, 'views/result/partials')
+      ],
+      {
+        watch:false,
+        noCache: true
+      }
+    ),
+    {autoescape: false}
+  );
+
+  env.addFilter('addSearchParam', (str, param) => {
+    if(!str || !param) {
+      return;
+    }
+    const hashIndex = str.indexOf('#');
+    const hashStr = hashIndex > 0 ? str.substr(hashIndex) : '';
+    const strWithOutHashStr = hashIndex > 0 ? str.substring(0, hashIndex) : str;
+    
+    if (strWithOutHashStr.includes('?')) {
+      //去掉原有ccode
+      const strWithOutHashStrWithOutCcode = strWithOutHashStr.replace(/ccode=[a-zA-Z0-9]+&?/,'');
+      return `${strWithOutHashStrWithOutCcode}&${param}${hashStr}`;
+    } 
+    return `${strWithOutHashStr}?${param}${hashStr}`;
+  });
+
   const name = ctx.params.name;
-  const chunkName = `result_${name}`;
-  const cssSource = ctx.state.isProduction ? `/${chunkName}.css`: `/static/${chunkName}.css`; 
-  const jsSource = ctx.state.isProduction ? `/${chunkName}.js`: `/static/${chunkName}.js`; 
-  const adData = jetpack.read(`./server/data/ad-subscription/${name}.json`,'json');
- // console.log(adData);
-  ctx.body = await render(`${name}.html`, 
+  const adData = jetpack.read(`./api/${name}.json`,'json');
+  ctx.body = await render(env,`${name}.html`, 
     Object.assign(
       adData,
       {
-        isProduction: ctx.state.isProduction,
-        cssSource:cssSource,
-        jsSource:jsSource
+        pageName: name,
+        cssSource: `${name}_css.html`,
+        jsSource: `${name}_js.html`
       }
     )
   );
@@ -142,14 +143,12 @@ resultRouter.get('/:name', async ctx => {
 });
 router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
 
-//ad post router
-dataApiRouter.post('/:name', async ctx => {
+//api router
+apiRouter.post('/:name', async ctx => {
   const name = ctx.params.name;
   const data = ctx.request.body;
-  data.adTitle = name;
-  data.styleName = name;
   const jsonToWrite = JSON.stringify(data);
-  jetpack.writeAsync(`./server/data/ad-subscription/${name}.json`, jsonToWrite);
+  jetpack.writeAsync(`./api/${name}.json`, jsonToWrite);
   ctx.body = {
     'ok': true 
   }
@@ -157,13 +156,13 @@ dataApiRouter.post('/:name', async ctx => {
 });
 
 
-dataApiRouter.get('/:name', async ctx => {
+apiRouter.get('/:name', async ctx => {
   const name = ctx.params.name;
-  ctx.body = await jetpack.readAsync(`./server/data/ad-subscription/${name}.json`,'json');
+  ctx.body = await jetpack.readAsync(`./api/${name}.json`,'json');
 });
-router.use('/data', dataApiRouter.routes());
+router.use('/api', apiRouter.routes());
 
-
+/*
 postResultRouter.get('/success/:name', async ctx => {
   //ctx.body = '提交成功!';
   const name = ctx.params.name;
@@ -177,7 +176,7 @@ postResultRouter.get('/success/:name', async ctx => {
   });
 });
 router.use('/postresult', postResultRouter.routes());
-
+*/
 app.use(router.routes());
 
 app.listen(5000, () => {

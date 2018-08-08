@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Header from '@ftchinese/ftc-header-react-new';
-import { pushdownMenuData, signData, channelData} from '../../data/forHeader';
+import { pushdownMenuData, signData, channelData} from '../data/forHeader';
 
-import Form from '../../components/Form';
-import TextInput from '../../components/TextInput';
+import Form from '../components/Form';
+import TextInput from '../components/TextInput';
 
 channelData[0].subs[3] = Object.assign(channelData[0].subs[3], {
   url:'#'
@@ -32,7 +32,7 @@ ReactDOM.render(
     <p className="gotoresult">
       前往<a href="/result/adforradio300_250" target="_blank">对应h5作品</a>查看效果O(∩_∩)O
     </p>
-    <Form actionUrl="/data/adforradio300_250" reminderWord="请根据广告实际需要编辑数据:">
+    <Form actionUrl="/api/adforradio300_250" reminderWord="请根据广告实际需要编辑数据:">
       <TextInput name="ccode" label="ccode编号" info="请输入广告的ccode" placeholder="例：2G186011" />
       <TextInput name="topTitle" label="顶部标题" info="请输入广告的顶部标题" placeholder="例：英语学习，付费会员专享 &gt; " />
 
