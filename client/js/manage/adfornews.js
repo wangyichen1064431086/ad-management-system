@@ -20,7 +20,9 @@ ReactDOM.render(
       pushdownMenuData={pushdownMenuData}
 
       signData={signData}
-      signedFlagCookieName='MANAGE_USER_NAME'
+      signedFlagCookieName='userid'
+      accountType = 'username'
+      loginUrl = '/user/login'
 
       dynamicNav={false}
       navChannelData={channelData}

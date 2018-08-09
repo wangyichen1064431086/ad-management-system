@@ -8,8 +8,13 @@ const bodyParser = require('koa-bodyparser');
 
 const nunjucks = require('nunjucks');
 const jetpack = require('fs-jetpack');
+
+const {validateUser, produceRandomStr} = require('./lib/validate-user');
+const authorizedUsers = require('./lib/database-authorizedusers');
+
 const app = new Koa();
 //const nodeEnv = process.env.NODE_ENV || '';
+
 
 function render(env, template, context) {
   return new Promise(function(resolve, reject) {
@@ -59,6 +64,7 @@ const manageRouter = new Router();
 const resultRouter = new Router();
 const apiRouter = new Router();
 const postResultRouter = new Router();
+const userRouter = new Router();
 //url参数可以为:adForNews
 
 ///management page router
@@ -162,7 +168,7 @@ apiRouter.get('/:name', async ctx => {
 });
 router.use('/api', apiRouter.routes());
 
-
+//post data result router
 postResultRouter.get('/success/:name', async ctx => {
   const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
     new nunjucks.FileSystemLoader(
@@ -187,6 +193,23 @@ const name = ctx.params.name;
   });
 });
 router.use('/postresult', postResultRouter.routes());
+
+// user router
+userRouter.post('/login', async ctx => {
+  const data = ctx.request.body;
+
+  const authorized = validateUser(data, authorizedUsers);
+  if(authorized) {
+    const userId = produceRandomStr(32);//待修改成基于username的加密方法
+    console.log(`userId:${userId}`)
+    ctx.cookies.set('userid', userId);
+  }
+  ctx.body = {
+    'ok': true 
+  }
+  ctx.redirect('back','/');
+})
+router.use('/user', userRouter.routes());
 
 app.use(router.routes());
 

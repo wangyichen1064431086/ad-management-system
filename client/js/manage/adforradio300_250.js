@@ -20,6 +20,8 @@ ReactDOM.render(
 
       signData={signData}
       signedFlagCookieName='MANAGE_USER_NAME'
+      accountType = 'username'
+      loginUrl = '/user/login'
 
       dynamicNav={false}
       navChannelData={channelData}

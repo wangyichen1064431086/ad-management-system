@@ -18,31 +18,13 @@ const pushdownMenuData = [
 
 const signData = [
   {
-    "url":"http://user.ftchinese.com/login",
+    "url":"",
     "word":"登录",
     "name":"signIn",
     "showTime":"before"
   },
- {
-    "url":"http://user.ftchinese.com/register",
-    "word":"免费注册",
-    "name":"signUp",
-    "showTime":"before"
-  },
   {
-    "url":"/users/mystories",
-    "word":"我的FT",
-    "name":"myFT",
-    "showTime":"after"
-  },
- {
-    "url":"/users/cp",
-    "word":"设置",
-    "name":"setting",
-    "showTime":"after"
-  },
-  {
-    "url":"http://user.ftchinese.com/logout",
+    "url":"/user/logout",
     "word":"登出",
     "name":"signOut",
     "showTime":"after"
