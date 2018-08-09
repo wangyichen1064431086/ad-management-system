@@ -62,7 +62,7 @@ function renderOneView(staticResource, ext, viewDirectory) {
       const destFileName = `${path.basename(staticResource, `.${ext}`).replace(`${viewDirectory}_`,'').replace(`${viewDirectory}`,'')}_${ext}`;
       const dataForRender = {
         isProduction: envIsProduction,
-        source:  envIsProduction ? path.join(process.cwd(),'static',`${staticResource}`): `/static/${staticResource}`
+        source:  envIsProduction ? path.join(__dirname,'static',`${staticResource}`): `/static/${staticResource}`
       }
       const renderResult = await render(env,`template_${ext}.html`, dataForRender);
       const destFilePath =  `./views/${viewDirectory}/partials/${destFileName}.html`;
