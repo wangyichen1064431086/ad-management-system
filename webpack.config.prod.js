@@ -15,7 +15,7 @@ module.exports = {
     manage_adforradio:['./client/js/manage/adforradio.js','./client/scss/app.scss'],
     manage_adfornews300_250:['./client/js/manage/adfornews300_250.js','./client/scss/app.scss'],
     manage_adforradio300_250:['./client/js/manage/adforradio300_250.js','./client/scss/app.scss'],
-    result_adfornews: ['./client/js/result/adsubscription.js','./client/scss/result/adForNews.scss'],
+    result_adfornews: ['./client/js/result/adsubscription.js','./client/scss/result/adfornews.scss'],
     result_adforradio: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio.scss'],
     result_adfornews300_250: ['./client/js/result/adsubscription.js','./client/scss/result/adfornews300_250.scss'],
     result_adforradio300_250: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio300_250.scss'],
