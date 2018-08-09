@@ -11,13 +11,13 @@ module.exports = {
   entry: {
     manage_adfornews: ['./client/js/manage/adfornews.js','./client/scss/app.scss'],
     manage_adforradio:['./client/js/manage/adforradio.js','./client/scss/app.scss'],
-    manage_adfornews300_250:['./client/js/manage/adfornews300-250.js','./client/scss/app.scss'],
-    manage_adforradio300_250:['./client/js/manage/adforradio300-250.js','./client/scss/app.scss'],
-    result_adfornews: ['./client/js/result/adsubscription.js','./client/scss/result/adfornews.scss'],
+    manage_adfornews300_250:['./client/js/manage/adfornews300_250.js','./client/scss/app.scss'],
+    manage_adforradio300_250:['./client/js/manage/adforradio300_250.js','./client/scss/app.scss'],
+    result_adfornews: ['./client/js/result/adsubscription.js','./client/scss/result/adForNews.scss'],
     result_adforradio: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio.scss'],
-    result_adfornews300_250: ['./client/js/result/adsubscription.js','./client/scss/result/ad-subscription/adfornews300-250.scss'],
-    result_adforradio300_250: ['./client/js/result/adsubscription.js','./client/scss/result/ad-subscription/adforradio300-250.scss'],
-    postresult:['./client/scss/postresult.scss']
+    result_adfornews300_250: ['./client/js/result/adsubscription.js','./client/scss/result/adfornews300_250.scss'],
+    result_adforradio300_250: ['./client/js/result/adsubscription.js','./client/scss/result/adforradio300_250.scss'],
+    postresult_app:['./client/scss/postresult.scss']
   },
   output: {
      // options related to how webpack emits results
@@ -45,7 +45,7 @@ module.exports = {
       resource: {
         test: /\.scss$/,
         or: [
-          path.join(__dirname, 'client', 'scss','results'),
+          path.join(__dirname, 'client', 'scss','result'),
           path.join(__dirname, 'client', 'scss','app.scss'),
           path.join(__dirname, 'client', 'scss', 'postresult.scss')
         ]
