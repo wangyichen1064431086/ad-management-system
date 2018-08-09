@@ -62,7 +62,7 @@ function renderOneView(staticResource, ext, viewDirectory) {
       const destFileName = `${path.basename(staticResource, `.${ext}`).replace(`${viewDirectory}_`,'').replace(`${viewDirectory}`,'')}_${ext}`;
       const dataForRender = {
         isProduction: envIsProduction,
-        source:  envIsProduction ? path.join(__dirname,'static',`${staticResource}`): `/static/${staticResource}`
+        source:  envIsProduction ? `../../../static/${staticResource}`: `/static/${staticResource}`
       }
       const renderResult = await render(env,`template_${ext}.html`, dataForRender);
       const destFilePath =  `./views/${viewDirectory}/partials/${destFileName}.html`;
@@ -104,78 +104,6 @@ async function renderViews(viewDirectory, ext) {
     console.log(`Rendered ${resultArr.length} ${viewDirectory} ${ext} source html partials.`)
   });
 }
-/*
-async function getManageJsPartials() {
-  console.log('getMange');
-  const manageJsFilesArr = jetpack.find('static', {
-    matching:'manage_*.js',
-    files:true,
-    directories: false,
-    recursive: false
-  }).map(pathStr => path.basename(pathStr));
-  console.log(manageJsFilesArr);
- 
-  await Promise.all(manageJsFilesArr.map(oneResourceFile => 
-    renderOneView(oneResourceFile, 'js', 'manage')
-  )).then(resultArr => {
-    console.log(`Rendered ${resultArr.length} manage js source html partials.`)
-  });
-}
-
-async function getManageCssPartials() {
-  console.log('getMange css');
-  const manageCssFilesArr = jetpack.find('static', {
-    matching:'manage_*.css',
-    files:true,
-    directories: false,
-    recursive: false
-  }).map(pathStr => path.basename(pathStr));
-  console.log(manageCssFilesArr);
- 
-  await Promise.all(manageCssFilesArr.map(oneResourceFile => 
-    renderOneView(oneResourceFile, 'css', 'manage')
-  )).then(resultArr => {
-    console.log(`Rendered ${resultArr.length} manage css source html partials.`)
-  });
-}
-
-async function getResultJsPartials() {
-  console.log('getResult');
-  const filesArr = jetpack.find('static', {
-    matching:'result_*.js',
-    files:true,
-    directories: false,
-    recursive: false
-  }).map(pathStr => path.basename(pathStr));
-  console.log(filesArr);
- 
-  await Promise.all(filesArr.map(oneFile => 
-    renderOneView(oneFile, 'js', 'result')
-  )).then(resultArr => {
-    console.log(`Rendered ${resultArr.length} manage js source html partials.`)
-  });
-}
-
-async function getResultCssPartials() {
-  console.log('getMange css');
-  const manageCssFilesArr = jetpack.find('static', {
-    matching:'manage_*.css',
-    files:true,
-    directories: false,
-    recursive: false
-  }).map(pathStr => path.basename(pathStr));
-  console.log(manageCssFilesArr);
- 
-  await Promise.all(manageCssFilesArr.map(oneResourceFile => 
-    renderOneView(oneResourceFile, 'css', 'manage')
-  )).then(resultArr => {
-    console.log(`Rendered ${resultArr.length} manage css source html partials.`)
-  });
-}
-*/
-//获取manage的partials
-// getManageJsPartials();
-// getManageCssPartials();
 
 renderViews('manage','js');
 renderViews('manage','css');
