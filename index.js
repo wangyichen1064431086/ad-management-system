@@ -69,7 +69,6 @@ const userRouter = new Router();
 
 ///management page router
 manageRouter.get('/:name', async ctx => { //name为adForNews
-
   const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
     new nunjucks.FileSystemLoader(
       [
@@ -151,6 +150,8 @@ router.use('/result', resultRouter.routes()); //Nested routers 嵌套路由
 
 //api router
 apiRouter.post('/:name', async ctx => {
+  //const userid = ctx.cookies.get('userid');
+  
   const name = ctx.params.name;
   const data = ctx.request.body;
   const jsonToWrite = JSON.stringify(data);
@@ -197,18 +198,48 @@ router.use('/postresult', postResultRouter.routes());
 // user router
 userRouter.post('/login', async ctx => {
   const data = ctx.request.body;
-
+  console.log(data);
   const authorized = validateUser(data, authorizedUsers);
   if(authorized) {
-    const userId = produceRandomStr(32);//待修改成基于username的加密方法
-    console.log(`userId:${userId}`)
-    ctx.cookies.set('userid', userId);
+    const userId = produceRandomStr(32);//待修改:成基于username的加密方法(问孙宇)
+    console.log(`userId:${userId}`);
+
+    if (data.saveme) {
+      const maxAgeValue = 1000*3600*24*7;//保持登录状态时长7天
+      ctx.cookies.set('userid', userId, {
+        httpOnly:false,//默认为true，表示只有服务器能访问，浏览器本地document.cookie无法获取
+        //todo:根据data的saveme添加max-age
+        maxAge: maxAgeValue
+      });
+    } else {
+      ctx.cookies.set('userid', userId, {
+        httpOnly:false
+      });
+    }
+
+    ctx.body = {
+      'ok': true 
+    }
+    
+  } else {
+    ctx.cookies.set('userid', 'failed', {
+      httpOnly:false
+    });
+    ctx.body = {
+      'ok': false 
+    }
   }
-  ctx.body = {
-    'ok': true 
+
+  ctx.redirect('back','/');
+
+});
+
+userRouter.get('/logout', async ctx => {
+  if(ctx.cookies.get('userid')) {
+    ctx.cookies.set('userid','');
   }
   ctx.redirect('back','/');
-})
+});
 router.use('/user', userRouter.routes());
 
 app.use(router.routes());

@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 
 
 import SubmitBtn from './SubmitBtn';
-//import emitter from './events';
+import emitter from './events';
 
 import form from '../../scss/components/form.scss'
 
@@ -29,7 +29,9 @@ class Form extends React.Component {
     ]),
     actionUrl: PropTypes.string.isRequired,
     textOnSubmitBtn: PropTypes.string.isRequired,
-    reminderWord: PropTypes.string
+    reminderWord: PropTypes.string,
+    hasSignedIn:PropTypes.bool
+    //signedFlagCookieName: PropTypes.string
   };
 
   static defaultProps = {
@@ -41,6 +43,7 @@ class Form extends React.Component {
     this.state = {
       fields: this.getFields(this.props.children)
     }
+    this.validateLogin = this.validateLogin.bind(this);
   }
   
   
@@ -131,6 +134,14 @@ class Form extends React.Component {
     });
   }
   
+  validateLogin(e) {
+  
+    if(!this.props.hasSignedIn) {
+      alert('您还没有登录，请先登录！');
+      emitter.emit('poploginwindow')
+      e.preventDefault();
+    }
+  }
   render() {
     const {children, actionUrl, textOnSubmitBtn,reminderWord} = this.props;
     return (
@@ -145,7 +156,7 @@ class Form extends React.Component {
 
           {this.state.fields}
           <div styleName="subbtn-line">
-            <SubmitBtn text={textOnSubmitBtn} />
+            <SubmitBtn submitHandler={this.validateLogin} text={textOnSubmitBtn} />
           </div>
         </form>
       </div>
