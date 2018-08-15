@@ -17,7 +17,8 @@ class TextInput extends React.Component {
     info: PropTypes.string,
     placeholder: PropTypes.string,
     defaultValue: PropTypes.string,
-    fieldSetName: PropTypes.string
+    fieldSetName: PropTypes.string,
+    onblurHandler: PropTypes.func
   }
   static defaultProps = {
     fieldSetName: 'noFieldSet'
@@ -63,13 +64,13 @@ class TextInput extends React.Component {
   } //如果这样写，绑定时直接这样写<input onChange={this.handleChange} />
   */
   render() {
-    const {name, label, info, placeholder} = this.props;
+    const {name, label, info, placeholder, onblurHandler} = this.props;
 
     return (
       <div styleName="onefield">
         <label htmlFor={name} styleName="textinput-label">{label}</label>
         <p styleName="textinput-info">{info}</p>
-        <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={this.state.value} onChange={(e)=>this.handleChange(e)} ref="input"/>
+        <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={this.state.value} onChange={(e)=>this.handleChange(e)} onBlur={onblurHandler} ref="input"/>
       </div>
     )
   }

@@ -9,7 +9,7 @@ const bodyParser = require('koa-bodyparser');
 const nunjucks = require('nunjucks');
 const jetpack = require('fs-jetpack');
 
-const {validateUser, produceRandomStr} = require('./lib/validate-user');
+const {validateUser} = require('./lib/validate-user');
 const authorizedUsers = require('./lib/database-authorizedusers');
 
 const app = new Koa();
@@ -78,7 +78,7 @@ manageRouter.get('/:name', async ctx => { //name为adForNews
       ],
       {
         watch:false,
-        noCache: true
+        noCache: false
       }
     ),
     {autoescape: false}
@@ -109,7 +109,7 @@ resultRouter.get('/:name', async ctx => {
       ],
       {
         watch:false,
-        noCache: true
+        noCache: false
       }
     ),
     {autoescape: false}
@@ -180,7 +180,7 @@ postResultRouter.get('/success/:name', async ctx => {
       ],
       {
         watch:false,
-        noCache: true
+        noCache: false
       }
     ),
     {autoescape: false}
@@ -199,20 +199,17 @@ router.use('/postresult', postResultRouter.routes());
 userRouter.post('/login', async ctx => {
   const data = ctx.request.body;
   console.log(data);
-  const authorized = validateUser(data, authorizedUsers);
-  if(authorized) {
-    const userId = produceRandomStr(32);//待修改:成基于username的加密方法(问孙宇)
-    console.log(`userId:${userId}`);
-
+  const userid = validateUser(data, authorizedUsers);
+  if(userid) {
     if (data.saveme) {
       const maxAgeValue = 1000*3600*24*7;//保持登录状态时长7天
-      ctx.cookies.set('userid', userId, {
+      ctx.cookies.set('userid', userid, {
         httpOnly:false,//默认为true，表示只有服务器能访问，浏览器本地document.cookie无法获取
         //todo:根据data的saveme添加max-age
         maxAge: maxAgeValue
       });
     } else {
-      ctx.cookies.set('userid', userId, {
+      ctx.cookies.set('userid', userid, {
         httpOnly:false
       });
     }

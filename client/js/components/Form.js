@@ -117,7 +117,14 @@ class Form extends React.Component {
         return (
           <fieldset styleName="section" key={fieldSetName}>
             <legend>{fieldSetName}</legend>
-            {childrenWithThisFieldSetName}
+            {React.Children.map(childrenWithThisFieldSetName, (child, index) => {
+              return React.cloneElement(child, {
+                key:`inFieldSet${index}`,
+                onblurHandler: this.validateLogin
+              })
+             }
+
+            )}
           </fieldset>
         );
       } else {
@@ -125,7 +132,8 @@ class Form extends React.Component {
         
         return React.Children.map(childrenWithThisFieldSetName, (child, index) => {
           return React.cloneElement(child, {
-            key:`noFieldSet${index}`
+            key:`noFieldSet${index}`,
+            onblurHandler: this.validateLogin
           });
         });
         
