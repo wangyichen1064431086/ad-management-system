@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import CSSModules from 'react-css-modules';
 
+import emitter from './events';
 
 import form from '../../scss/components/form.scss';
 
-//import emitter from './events';
 
 class TextInput extends React.Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class TextInput extends React.Component {
     placeholder: PropTypes.string,
     defaultValue: PropTypes.string,
     fieldSetName: PropTypes.string,
-    onblurHandler: PropTypes.func
+    hasSignedIn:PropTypes.bool
   }
   static defaultProps = {
     fieldSetName: 'noFieldSet'
@@ -52,6 +52,11 @@ class TextInput extends React.Component {
   */
  
   handleChange(e) {
+    if(!this.props.hasSignedIn) {
+      alert('您还没有登录，请先登录！');
+      emitter.emit('poploginwindow');
+      return;
+    }
     this.setState({
       value: e.target.value || this.fetchedValue
     })
@@ -70,7 +75,7 @@ class TextInput extends React.Component {
       <div styleName="onefield">
         <label htmlFor={name} styleName="textinput-label">{label}</label>
         <p styleName="textinput-info">{info}</p>
-        <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={this.state.value} onChange={(e)=>this.handleChange(e)} onBlur={onblurHandler} ref="input"/>
+        <input type="text" styleName="text-input" id={name} name={name} placeholder={placeholder} value={this.state.value} onChange={(e)=>this.handleChange(e)} ref="input"/>
       </div>
     )
   }

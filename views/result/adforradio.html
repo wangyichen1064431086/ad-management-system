@@ -34,9 +34,9 @@
   </div>
 
   <div class="payinfo">
-    <p>FT中文网付费会员，专享资讯</p>
+    <p>{{productDesc.extraWord}}</p>
     {% set searchParam = 'ccode='+ccode%}
-    <div><a href="{{ 'http://www.ftacademy.cn/subscription.html'|addSearchParam(searchParam) }}" target="_blank">仅198元/年，即刻订阅&nbsp;&nbsp;&nbsp;</a></div>
+    <div><a href="{{ productDesc.buttonUrl|addSearchParam(searchParam) }}" target="_blank">{{productDesc.buttonWord}}&nbsp;&nbsp;&nbsp;</a></div>
   </div>
 {% endblock %}
 

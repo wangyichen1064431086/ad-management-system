@@ -18,4 +18,9 @@ function getCookie(name) {
   return decodeURIComponent(cookieStr.substring(valueStartIndex, valueEndIndex));
 }
 
-export {getCookie};
+function deleteCookie (name, domain, path) {  
+  var cval = getCookie (name);
+  var expires = (new Date((new Date()).getTime() - 1)).toUTCString();
+  document.cookie = encodeURIComponent(name) + '=;'+ cval +' expires='+ expires +';domain=' + (domain ? domain : location.hostname) + ';path=' + (path ? path : '/');
+}
+export {getCookie, deleteCookie};

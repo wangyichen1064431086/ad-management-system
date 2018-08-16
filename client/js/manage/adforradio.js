@@ -10,7 +10,7 @@ import Form from '../components/Form';
 import TextInput from '../components/TextInput';
 
 import emitter from '../components/events';
-import {getCookie} from '../components/utils';
+import {getCookie, deleteCookie} from '../components/utils';
 
 
 channelData[0].subs[1] = Object.assign(channelData[0].subs[1], {
@@ -25,11 +25,11 @@ class App extends React.Component {
 
     
     const useridValue = getCookie('userid');
-    
+    const loginfailed = getCookie('loginfailed');
     this.state = {
       hasSignedIn: useridValue && useridValue.length === 32,
-      validateFailed: useridValue && useridValue === 'failed',
-      showLoginOverlay: useridValue && useridValue === 'failed'
+      validateFailed: !!loginfailed,
+      showLoginOverlay: !!loginfailed
     }
     this.clickToShowLoginOverlay = this.clickToShowLoginOverlay.bind(this);
     this.clickToCloseLoginOverlay = this.clickToCloseLoginOverlay.bind(this);
@@ -52,7 +52,11 @@ class App extends React.Component {
     console.log('click');
     this.setState({
       showLoginOverlay:true
-    })
+    });
+    if(getCookie('loginfailed')) {
+      deleteCookie('loginfailed');
+      console.log('loginfailed cookie:', getCookie('loginfailed'));
+    }
   }
   clickToCloseLoginOverlay(e) {
     if(e.target.className.includes('bgshadow') || e.target.className.includes('overlay-close')) {
@@ -128,6 +132,10 @@ class App extends React.Component {
           <TextInput name="articleList[2][title]" label="标题" info="请输入该文章的标题" placeholder="例：The Life of a Song：Hell Hound On My Trail" fieldSetName="列表文章3" />
           <TextInput name="articleList[2][url]" label="链接" info="请输入该文章的链接" placeholder="例：http://www.ftchinese.com/interactive/11934?adchannelID=1100&exclusive#adchannelID=1100" fieldSetName="列表文章2" />
           <TextInput name="articleList[2][pic]" label="图片" info="请输入该文章的图片地址" placeholder="例：http://i.ftimg.net/picture/9/000077559_piclink.jpg" fieldSetName="列表文章3" />
+
+          <TextInput name="productDesc[extraWord]" label="补充说明" info="请输入该产品的补充说明文字，不超过14个汉字（含标点）" placeholder="例：FT中文网付费会员，专享资讯" fieldSetName="产品说明" />
+          <TextInput name="productDesc[buttonWord]" label="按钮文字" info="请输入跳转至该产品的按钮上的文字，不超过10个汉字（含标点）" placeholder="例：仅198元/年，即刻订阅" fieldSetName="产品说明" />
+          <TextInput name="productDesc[buttonUrl]" label="产品链接" info="请输入该产品的链接" placeholder="例：http://www.ftchinese.com/premium/001077859?exclusive" fieldSetName="产品说明" />
         </Form>
       </div>
     )

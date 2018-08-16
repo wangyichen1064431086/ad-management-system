@@ -33,7 +33,7 @@
   "homepage": "https://github.com/wangyichen1064431086/h5-management-system#readme",
   "devDependencies": {
     "@ftchinese/ftc-header-react-new": "^2.0.2",
-    "@ftchinese/ftc-login-react": "^1.6.0",
+    "@ftchinese/ftc-login-react": "^1.7.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

@@ -98,7 +98,7 @@ class Form extends React.Component {
 
   
   getFields(myChidren) {
-    //const {children} = this.props;
+    const {hasSignedIn} = this.props;
     const childrenArr = Array.from(myChidren);
 
     const fieldSetNameArr = ['noFieldSet']; //保证'noFieldSet'的字段在上面
@@ -120,7 +120,7 @@ class Form extends React.Component {
             {React.Children.map(childrenWithThisFieldSetName, (child, index) => {
               return React.cloneElement(child, {
                 key:`inFieldSet${index}`,
-                onblurHandler: this.validateLogin
+                hasSignedIn: hasSignedIn
               })
              }
 
@@ -133,7 +133,7 @@ class Form extends React.Component {
         return React.Children.map(childrenWithThisFieldSetName, (child, index) => {
           return React.cloneElement(child, {
             key:`noFieldSet${index}`,
-            onblurHandler: this.validateLogin
+            hasSignedIn: hasSignedIn
           });
         });
         
@@ -146,7 +146,7 @@ class Form extends React.Component {
   
     if(!this.props.hasSignedIn) {
       alert('您还没有登录，请先登录！');
-      emitter.emit('poploginwindow')
+      emitter.emit('poploginwindow');
       e.preventDefault();
     }
   }

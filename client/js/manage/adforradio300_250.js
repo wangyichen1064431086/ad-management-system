@@ -10,7 +10,7 @@ import Form from '../components/Form';
 import TextInput from '../components/TextInput';
 
 import emitter from '../components/events';
-import {getCookie} from '../components/utils';
+import {getCookie, deleteCookie} from '../components/utils';
 
 channelData[0].subs[3] = Object.assign(channelData[0].subs[3], {
   url:'#'
@@ -23,11 +23,11 @@ class App extends React.Component {
 
     
     const useridValue = getCookie('userid');
-    
+    const loginfailed = getCookie('loginfailed');
     this.state = {
       hasSignedIn: useridValue && useridValue.length === 32,
-      validateFailed: useridValue && useridValue === 'failed',
-      showLoginOverlay: useridValue && useridValue === 'failed'
+      validateFailed: !!loginfailed,
+      showLoginOverlay: !!loginfailed
     }
     this.clickToShowLoginOverlay = this.clickToShowLoginOverlay.bind(this);
     this.clickToCloseLoginOverlay = this.clickToCloseLoginOverlay.bind(this);
@@ -57,6 +57,10 @@ class App extends React.Component {
       this.setState({
         showLoginOverlay: false
       });
+      if(getCookie('loginfailed')) {
+        deleteCookie('loginfailed');
+        console.log('loginfailed cookie:', getCookie('loginfailed'));
+      }
     }
   }
 
@@ -115,6 +119,10 @@ class App extends React.Component {
           <TextInput name="articleList[0][tag]" label="标签" info="请输入该文章的标签tag" placeholder="例：英语电台" fieldSetName="列表文章1"/>
           <TextInput name="articleList[0][title]" label="标题" info="请输入该文章的标题" placeholder="例：海外漂泊教会了我们什么" fieldSetName="列表文章1" />
           <TextInput name="articleList[0][url]" label="链接" info="请输入该文章的链接" placeholder="例：http://www.ftchinese.com/interactive/12028?adchannelID=5000&exclusive#adchannelID=1100" fieldSetName="列表文章1" />
+        
+
+          <TextInput name="productDesc[buttonWord]" label="按钮文字" info="请输入跳转至该产品的按钮上的文字，不超过10个汉字（含标点）" placeholder="例：仅198元/年，即刻订阅" fieldSetName="产品说明" />
+          <TextInput name="productDesc[buttonUrl]" label="产品链接" info="请输入该产品的链接" placeholder="例：http://www.ftchinese.com/premium/001077859?exclusive" fieldSetName="产品说明" />
         </Form>
       </div>
     )

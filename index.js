@@ -83,6 +83,7 @@ manageRouter.get('/:name', async ctx => { //name为adForNews
     ),
     {autoescape: false}
   );
+
   ctx.body = await render(env, 'app.html', {
     pageName: 'FTC Ad Management System',
     cssSource: `${ctx.params.name}_css.html`,
@@ -213,13 +214,16 @@ userRouter.post('/login', async ctx => {
         httpOnly:false
       });
     }
-
+    if(ctx.cookies.get('loginfailed')) {
+      console.log('there is loginfailed')
+      ctx.cookies.set('loginfailed','');
+    }
     ctx.body = {
       'ok': true 
     }
     
   } else {
-    ctx.cookies.set('userid', 'failed', {
+    ctx.cookies.set('loginfailed', '1', {
       httpOnly:false
     });
     ctx.body = {
