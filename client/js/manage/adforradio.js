@@ -130,7 +130,7 @@ class App extends React.Component {
 
           <TextInput name="articleList[2][tag]" label="标签" info="请输入该文章的标签tag" placeholder="例：单曲鉴赏" fieldSetName="列表文章3" />
           <TextInput name="articleList[2][title]" label="标题" info="请输入该文章的标题" placeholder="例：The Life of a Song：Hell Hound On My Trail" fieldSetName="列表文章3" />
-          <TextInput name="articleList[2][url]" label="链接" info="请输入该文章的链接" placeholder="例：http://www.ftchinese.com/interactive/11934?adchannelID=1100&exclusive#adchannelID=1100" fieldSetName="列表文章2" />
+          <TextInput name="articleList[2][url]" label="链接" info="请输入该文章的链接" placeholder="例：http://www.ftchinese.com/interactive/11934?adchannelID=1100&exclusive#adchannelID=1100" fieldSetName="列表文章3" />
           <TextInput name="articleList[2][pic]" label="图片" info="请输入该文章的图片地址" placeholder="例：http://i.ftimg.net/picture/9/000077559_piclink.jpg" fieldSetName="列表文章3" />
 
           <TextInput name="productDesc[extraWord]" label="补充说明" info="请输入该产品的补充说明文字，不超过14个汉字（含标点）" placeholder="例：FT中文网付费会员，专享资讯" fieldSetName="产品说明" />
