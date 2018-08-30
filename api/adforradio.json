@@ -1,1 +1,35 @@
-{"ccode":"2G186013","topTitle":"英语电台","headArticle":{"tag":"职场","title":"律师和水管工——最高枕无忧的工作？","url":"http://www.ftchinese.com/interactive/12143?adchannelID=1100&exclusive#adchannelID=1100 ","pic":"http://i.ftimg.net/picture/5/000078715_piclink.jpg"},"articleList":[{"tag":"生活","title":"离婚的学问","url":"http://www.ftchinese.com/interactive/12097?adchannelID=1100&exclusive#adchannelID=1100","pic":"http://i.ftimg.net/picture/6/000078716_piclink.jpg"},{"tag":"管理","title":"中层经理的“辛酸泪”","url":"http://www.ftchinese.com/interactive/12111?adchannelID=1100&exclusive#adchannelID=1100","pic":"http://i.ftimg.net/picture/7/000078717_piclink.jpg"},{"url":"http://www.ftchinese.com/interactive/12124?adchannelID=1100&exclusive#adchannelID=1100 ","tag":"单曲鉴赏","title":"The Life of a Song：Johnny Remember Me","pic":"http://i.ftimg.net/picture/9/000077559_piclink.jpg"}],"productDesc":{"extraWord":"FT中文网付费会员，专享资讯","buttonWord":"仅198元/年，即刻订阅","buttonUrl":"http://www.ftacademy.cn/subscription.html"}}
+{
+  "ccode": "2G186013",
+  "topTitle": "英语电台",
+  "headArticle": {
+    "tag": "职场管理",
+    "title": "为什么成功人士懂得拒绝",
+    "url": "http://www.ftchinese.com/interactive/12551?adchannelID=1100&exclusive#adchannelID=1100",
+    "pic": "http://i.ftimg.net/picture/8/000080178_piclink.jpg"
+  },
+  "articleList": [
+    {
+      "tag": "科技创新",
+      "title": "独角兽IPO：机不可失 ",
+      "url": "http://www.ftchinese.com/interactive/12545?adchannelID=1100&exclusive#adchannelID=1100",
+      "pic": "http://i.ftimg.net/picture/9/000080179_piclink.jpg"
+    },
+    {
+      "tag": "中美贸易战",
+      "title": "贸易战中大豆境遇的启示",
+      "url": "http://www.ftchinese.com/interactive/12543?adchannelID=1100&exclusive#adchannelID=1100",
+      "pic": "http://i.ftimg.net/picture/0/000080180_piclink.jpg"
+    },
+    {
+      "url": "http://www.ftchinese.com/interactive/12528?adchannelID=1100&exclusive#adchannelID=1100",
+      "tag": "单曲鉴赏",
+      "title": "The life of a song：I’m in the Mood for Love",
+      "pic": "http://i.ftimg.net/picture/1/000080181_piclink.jpg"
+    }
+  ],
+  "productDesc": {
+    "extraWord": "13周年庆，付费订阅全年最低价",
+    "buttonWord": "仅此一天，即刻抢订",
+    "buttonUrl": "http://www.ftacademy.cn/subscription.html"
+  }
+}
