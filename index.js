@@ -98,7 +98,7 @@ manageRouter.get('/:name', async ctx => { //name为adForNews
 router.use('/manage', manageRouter.routes());
 
 
-router.get('/', ctx => {//默认重定向
+router.get('/', async ctx => {//默认重定向
   ctx.redirect('/manage/adfornews');
 });
 
