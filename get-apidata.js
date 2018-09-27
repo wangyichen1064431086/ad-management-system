@@ -13,14 +13,12 @@ async function  getOneApiData (name) {
   try {
     const response = await got(apiUrl);
     const data = response.body;
-    console.log(data);
+    //console.log(data);
 
     return jetpack.writeAsync(`./api/${name}.json`,data)
   } catch (err) {
     console.log(err.response.body);
   }
- 
-  //jetpack.writeAsync(`./api/${name}.json`,data)
 }
 
 nameArr.forEach(name => {
