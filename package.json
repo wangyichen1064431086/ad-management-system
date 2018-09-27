@@ -6,6 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=testing jest",
     "clean": "rimraf static",
+    "getapidata": "node get-apidata.js",
     "webpackforprod": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start:preparepartials": "cross-env NODE_ENV=development node index-prepare",
     "start:start": "cross-env NODE_ENV=development nodemon index.js",
@@ -50,6 +51,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
+    "got": "^9.2.2",
     "identity-obj-proxy": "^3.0.0",
     "immutable": "^3.8.2",
     "inline-source": "^6.1.5",
